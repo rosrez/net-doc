@@ -1,0 +1,5 @@
+# iptables -I INPUT 1 esp -j ACCEPT
+# iptables -I INPUT 2 -p udp --dport 500 -j ACCEPT
+# iptables -I INPUT 3 -p udp --dport 4500 -j ACCEPT
+# iptables -I INPUT 4 -p icmp -j ACCEPT
+# iptables -I INPUT 5 -p tcp --dport 50000 -j ACCEPT

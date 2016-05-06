@@ -1,0 +1,52 @@
+NOTE1:
+the 'unrouted' entries. May or may not signal that no extra routing is added to the routing table.
+
+home-work-cacert: CA certificate connection:
+-------------------------------------------
+
+000 "home-work-cacert": 192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]...%any[%fromcert]; unrouted; eroute owner: #0
+000 "home-work-cacert":     oriented; my_ip=unset; their_ip=unset; mycert=home
+000 "home-work-cacert":   xauth info: us:none, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "home-work-cacert":   modecfg info: us:none, them:none, modecfg policy:push, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "home-work-cacert":   labeled_ipsec:no;
+000 "home-work-cacert":   policy_label:unset;
+000 "home-work-cacert":   CAs: 'C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com'...'%any'
+000 "home-work-cacert":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "home-work-cacert":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "home-work-cacert":   sha2_truncbug:no; initial_contact:no; cisco_unity:no; fake_strongswan:no; send_vendorid:no;
+000 "home-work-cacert":   policy: RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "home-work-cacert":   conn_prio: 32,32; interface: enp2s0; metric: 0; mtu: unset; sa_prio:auto; nflog-group: unset; mark: unset;
+000 "home-work-cacert":   newest ISAKMP SA: #0; newest IPsec SA: #0;
+000 "home-work-cacert"[1]: 192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]...192.168.1.226[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work]; erouted; eroute owner: #2
+000 "home-work-cacert"[1]:     oriented; my_ip=unset; their_ip=unset; mycert=home
+000 "home-work-cacert"[1]:   xauth info: us:none, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "home-work-cacert"[1]:   modecfg info: us:none, them:none, modecfg policy:push, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "home-work-cacert"[1]:   labeled_ipsec:no;
+000 "home-work-cacert"[1]:   policy_label:unset;
+000 "home-work-cacert"[1]:   CAs: 'C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com'...'%any'
+000 "home-work-cacert"[1]:   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "home-work-cacert"[1]:   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "home-work-cacert"[1]:   sha2_truncbug:no; initial_contact:no; cisco_unity:no; fake_strongswan:no; send_vendorid:no;
+000 "home-work-cacert"[1]:   policy: RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "home-work-cacert"[1]:   conn_prio: 32,32; interface: enp2s0; metric: 0; mtu: unset; sa_prio:auto; nflog-group: unset; mark: unset;
+000 "home-work-cacert"[1]:   newest ISAKMP SA: #1; newest IPsec SA: #2;
+000 "home-work-cacert"[1]:   IKE algorithm newest: AES_CBC_128-SHA1-MODP2048
+000 "home-work-cacert"[1]:   ESP algorithm newest: AES_128-HMAC_SHA1; pfsgroup=<Phase1>
+
+* * *
+home-work: PSK connection
+-------------------------
+
+000 "home-work": 192.168.1.5<192.168.1.5>...%any[@work]; unrouted; eroute owner: #0
+000 "home-work":     oriented; my_ip=unset; their_ip=unset
+000 "home-work":   xauth info: us:none, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "home-work":   modecfg info: us:none, them:none, modecfg policy:push, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "home-work":   labeled_ipsec:no;
+000 "home-work":   policy_label:unset;
+000 "home-work":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "home-work":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "home-work":   sha2_truncbug:no; initial_contact:no; cisco_unity:no; fake_strongswan:no; send_vendorid:no;
+000 "home-work":   policy: RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "home-work":   conn_prio: 32,32; interface: enp2s0; metric: 0; mtu: unset; sa_prio:auto; nflog-group: unset; mark: unset;
+000 "home-work":   newest ISAKMP SA: #0; newest IPsec SA: #0;
+

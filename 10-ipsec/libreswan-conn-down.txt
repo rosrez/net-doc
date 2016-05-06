@@ -1,0 +1,13 @@
+# The following sequence illustrates tunnel teardown initiated by the remote peer.
+# It looks like this host honours the delete payload but immediately tries to re-establish connection. Since we stopped ipsec on the other host, that host simply returns connection refused (no one is listening on port 500 anymore).
+
+# tail -f /var/log/secure
+
+Apr  2 00:17:53 localhost pluto[2680]: "home-work"[4] 192.168.1.220 #7: received Delete SA(0xc5123df6) payload: deleting IPSEC State #8
+Apr  2 00:17:53 localhost pluto[2680]: "home-work"[4] 192.168.1.220 #7: ESP traffic information: in=0B out=0B
+Apr  2 00:17:53 localhost pluto[2680]: "home-work"[4] 192.168.1.220 #7: received and ignored empty informational notification payload
+Apr  2 00:17:53 localhost pluto[2680]: "home-work"[4] 192.168.1.220 #7: received Delete SA payload: self-deleting ISAKMP State #7
+Apr  2 00:17:53 localhost pluto[2680]: "home-work"[4] 192.168.1.220: deleting connection "home-work" instance with peer 192.168.1.220 {isakmp=#0/ipsec=#0}
+Apr  2 00:17:53 localhost pluto[2680]: packet from 192.168.1.220:500: received and ignored empty informational notification payload
+Apr  2 00:17:53 localhost pluto[2680]: ERROR: asynchronous network error report on enp2s0 (sport=500) for message to 192.168.1.220 port 500, complainant 192.168.1.220: Connection refused [errno 111, origin ICMP type 3 code 3 (not authenticated)]
+

@@ -1,0 +1,80 @@
+# Capture IKE exchange. Normal exchange takes place on UDP port 500, NAT-traversal exchange uses UDP port 4500. ESP filter may be omitted there; it may be useful if we want to watch subsequent captures with this command.
+
+# tcpdump esp or udp port 500 or udp port 4500
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+23:37:07.989956 IP 192.168.1.219.isakmp > localhost.localdomain.isakmp: isakmp: phase 1 I ident
+23:37:07.990470 IP localhost.localdomain.isakmp > 192.168.1.219.isakmp: isakmp: phase 1 R ident
+23:37:07.998542 IP 192.168.1.219.isakmp > localhost.localdomain.isakmp: isakmp: phase 1 I ident
+23:37:08.001937 IP localhost.localdomain.isakmp > 192.168.1.219.isakmp: isakmp: phase 1 R ident
+23:37:08.059493 IP 192.168.1.219.isakmp > localhost.localdomain.isakmp: isakmp: phase 1 I ident[E]
+23:37:08.084034 IP localhost.localdomain.isakmp > 192.168.1.218.isakmp: isakmp: phase 2/others ? inf[E]
+23:37:08.097300 IP localhost.localdomain.isakmp > 192.168.1.218.isakmp: isakmp: phase 2/others ? inf[E]
+23:37:08.113615 IP localhost.localdomain.isakmp > 192.168.1.219.isakmp: isakmp: phase 1 R ident[E]
+23:37:08.127499 IP 192.168.1.219.isakmp > localhost.localdomain.isakmp: isakmp: phase 2/others I oakley-quick[E]
+23:37:08.134219 IP localhost.localdomain.isakmp > 192.168.1.219.isakmp: isakmp: phase 2/others R oakley-quick[E]
+23:37:08.158317 IP 192.168.1.219.isakmp > localhost.localdomain.isakmp: isakmp: phase 2/others I oakley-quick[E]
+
+# ---------------------------
+
+# Capture ESP (ip proto 50) and decoded icmp traffic. Note that there is no outgoing packets visible in the clear; only the encrypted version gets captured.
+# Note that we could just as well write 'esp' instead of 'ip proto 50'.
+
+# tcpdump -vv ip proto 50 or icmp
+tcpdump: listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+00:10:43.401665 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 152)
+    192.168.1.220 > localhost.localdomain: ESP(spi=0x248f7741,seq=0xc), length 132
+00:10:43.401665 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.1.220 > localhost.localdomain: ICMP echo request, id 26391, seq 1, length 64
+00:10:43.401810 IP (tos 0x0, ttl 64, id 11613, offset 0, flags [none], proto ESP (50), length 152)
+    localhost.localdomain > 192.168.1.220: ESP(spi=0xc5123df6,seq=0xc), length 132
+00:10:44.361779 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 152)
+    192.168.1.220 > localhost.localdomain: ESP(spi=0x248f7741,seq=0xd), length 132
+00:10:44.361779 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.1.220 > localhost.localdomain: ICMP echo request, id 26391, seq 2, length 64
+00:10:44.361870 IP (tos 0x0, ttl 64, id 12541, offset 0, flags [none], proto ESP (50), length 152)
+    localhost.localdomain > 192.168.1.220: ESP(spi=0xc5123df6,seq=0xd), length 132
+00:10:45.378408 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 152)
+    192.168.1.220 > localhost.localdomain: ESP(spi=0x248f7741,seq=0xe), length 132
+00:10:49.433897 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 152)
+    192.168.1.220 > localhost.localdomain: ESP(spi=0x248f7741,seq=0x12), length 132
+00:10:49.433897 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.1.220 > localhost.localdomain: ICMP echo request, id 26391, seq 7, length 64
+00:10:49.434004 IP (tos 0x0, ttl 64, id 15408, offset 0, flags [none], proto ESP (50), length 152)
+    localhost.localdomain > 192.168.1.220: ESP(spi=0xc5123df6,seq=0x12), length 132
+00:10:50.449651 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 152)
+    192.168.1.220 > localhost.localdomain: ESP(spi=0x248f7741,seq=0x13), length 132
+00:10:50.449651 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.1.220 > localhost.localdomain: ICMP echo request, id 26391, seq 8, length 64
+00:10:50.449761 IP (tos 0x0, ttl 64, id 15940, offset 0, flags [none], proto ESP (50), length 152)
+    localhost.localdomain > 192.168.1.220: ESP(spi=0xc5123df6,seq=0x13), length 132
+
+# ---------------------------
+
+# Capture ESP (ip proto 50) and decoded tcp traffic. Note that there is no outgoing packets visible in the clear; only the encrypted version gets captured.
+
+# tcpdump -v ip proto 50 or tcp port 50000
+tcpdump: listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+23:41:00.688674 IP (tos 0x10, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    192.168.1.219 > localhost.localdomain: ESP(spi=0x9c81642a,seq=0x5), length 100
+23:41:00.688674 IP (tos 0x10, ttl 64, id 18726, offset 0, flags [DF], proto TCP (6), length 60)
+    192.168.1.219.54137 > localhost.localdomain.50000: Flags [S], cksum 0x410e (correct), seq 4291706065, win 14600, options [mss 1460,sackOK,TS val 5731831 ecr 0,nop,wscale 7], length 0
+23:41:00.688844 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    localhost.localdomain > 192.168.1.219: ESP(spi=0xad316ce0,seq=0x3), length 100
+23:41:00.693525 IP (tos 0x10, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    192.168.1.219 > localhost.localdomain: ESP(spi=0x9c81642a,seq=0x6), length 100
+23:41:00.693525 IP (tos 0x10, ttl 64, id 18727, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.219.54137 > localhost.localdomain.50000: Flags [.], cksum 0xc3d3 (correct), ack 1498339608, win 115, options [nop,nop,TS val 5731838 ecr 5812677], length 0
+23:41:48.175021 IP (tos 0x10, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    192.168.1.219 > localhost.localdomain: ESP(spi=0x9c81642a,seq=0x7), length 100
+23:41:48.175021 IP (tos 0x10, ttl 64, id 18728, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.219.54137 > localhost.localdomain.50000: Flags [F.], cksum 0x0a5a (correct), seq 0, ack 1, win 115, options [nop,nop,TS val 5779318 ecr 5812677], length 0
+23:41:48.175292 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    localhost.localdomain > 192.168.1.219: ESP(spi=0xad316ce0,seq=0x4), length 100
+23:41:48.175357 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    localhost.localdomain > 192.168.1.219: ESP(spi=0xad316ce0,seq=0x5), length 100
+23:41:48.186927 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ESP (50), length 120)
+    192.168.1.219 > localhost.localdomain: ESP(spi=0x9c81642a,seq=0x8), length 100
+23:41:48.186927 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.219.54137 > localhost.localdomain.50000: Flags [.], cksum 0x50d1 (correct), ack 2, win 115, options [nop,nop,TS val 5779326 ecr 5860164], length 0
+
