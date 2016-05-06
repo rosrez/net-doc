@@ -1,0 +1,51 @@
+May  5 16:10:07 ester4 ipsec__plutorun: Starting Pluto subsystem...
+May  5 16:10:07 ester4 pluto[3450]: nss directory plutomain: /etc/ipsec.d
+May  5 16:10:07 ester4 pluto[3450]: NSS Initialized
+May  5 16:10:07 ester4 pluto[3450]: Non-fips mode set in /proc/sys/crypto/fips_enabled
+May  5 16:10:07 ester4 pluto[3450]: FIPS: not a FIPS product
+May  5 16:10:07 ester4 pluto[3450]: FIPS HMAC integrity verification FAILURE
+May  5 16:10:07 ester4 pluto[3450]: FIPS: not a FIPS product, kernel mode ignored - continuing
+May  5 16:10:07 ester4 pluto[3450]: Starting Pluto (Openswan Version 2.6.32; Vendor ID OEhyLdACecfa) pid:3450
+May  5 16:10:07 ester4 pluto[3450]: Non-fips mode set in /proc/sys/crypto/fips_enabled
+May  5 16:10:07 ester4 pluto[3450]: LEAK_DETECTIVE support [disabled]
+May  5 16:10:07 ester4 pluto[3450]: OCF support for IKE [disabled]
+May  5 16:10:07 ester4 pluto[3450]: SAref support [disabled]: Protocol not available
+May  5 16:10:07 ester4 pluto[3450]: SAbind support [disabled]: Protocol not available
+May  5 16:10:07 ester4 pluto[3450]: NSS support [enabled]
+May  5 16:10:07 ester4 pluto[3450]: HAVE_STATSD notification support not compiled in
+May  5 16:10:07 ester4 pluto[3450]: Setting NAT-Traversal port-4500 floating to on
+May  5 16:10:07 ester4 pluto[3450]:    port floating activation criteria nat_t=1/port_float=1
+May  5 16:10:07 ester4 pluto[3450]:    NAT-Traversal support  [enabled]
+May  5 16:10:07 ester4 pluto[3450]: 1 bad entries in virtual_private - none loaded
+
+
+May  5 16:10:07 ester4 pluto[3450]: Using Linux 2.6 IPsec interface code on 2.6.32-358.6.2.el6.x86_64 (experimental code)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_ccm_8: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_ccm_12: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_ccm_16: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_gcm_8: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_gcm_12: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: ike_alg_register_enc(): Activating aes_gcm_16: Ok (ret=0)
+May  5 16:10:07 ester4 pluto[3450]: Could not change to directory '/etc/ipsec.d/cacerts': /
+May  5 16:10:07 ester4 pluto[3450]: Could not change to directory '/etc/ipsec.d/aacerts': /
+May  5 16:10:07 ester4 pluto[3450]: Could not change to directory '/etc/ipsec.d/ocspcerts': /
+May  5 16:10:07 ester4 pluto[3450]: Could not change to directory '/etc/ipsec.d/crls'
+May  5 16:10:07 ester4 pluto[3450]: | selinux support is NOT enabled. 
+May  5 16:10:07 ester4 pluto[3450]: loading certificate from work 
+May  5 16:10:07 ester4 pluto[3450]:   no subjectAltName matches ID '%fromcert', replaced by subject DN
+May  5 16:10:07 ester4 pluto[3450]: added connection description "home-work-cacert"
+May  5 16:10:07 ester4 pluto[3450]: added connection description "home-work"
+May  5 16:10:07 ester4 pluto[3450]: listening for IKE messages
+May  5 16:10:07 ester4 pluto[3450]: adding interface eth5/eth5 192.168.235.131:500
+May  5 16:10:07 ester4 pluto[3450]: adding interface eth5/eth5 192.168.235.131:4500
+May  5 16:10:07 ester4 pluto[3450]: adding interface eth4/eth4 192.168.1.226:500
+May  5 16:10:07 ester4 pluto[3450]: adding interface eth4/eth4 192.168.1.226:4500
+May  5 16:10:07 ester4 pluto[3450]: adding interface lo/lo 127.0.0.1:500
+May  5 16:10:07 ester4 pluto[3450]: adding interface lo/lo 127.0.0.1:4500
+May  5 16:10:07 ester4 pluto[3450]: adding interface lo/lo ::1:500
+May  5 16:10:07 ester4 pluto[3450]: loading secrets from "/etc/ipsec.secrets"
+May  5 16:10:07 ester4 pluto[3450]: loading secrets from "/etc/ipsec.d/work-cacert.secrets"
+May  5 16:10:07 ester4 pluto[3450]: loaded private key for keyid: PPK_RSA:AwEAAcx4+
+May  5 16:10:07 ester4 pluto[3450]: loading secrets from "/etc/ipsec.d/work.secrets"
+May  5 16:10:07 ester4 pluto[3450]: loaded private key for keyid: PPK_RSA:AQPPfMSrB
+

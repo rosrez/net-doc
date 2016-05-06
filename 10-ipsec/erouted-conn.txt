@@ -1,0 +1,95 @@
+000 Connection list:
+000
+000 "loa-vpn": 10.3.111.128/32===156.24.23.105<156.24.23.105>[@loa-vpn,+MC+XC+S=C]---156.24.23.1...10.253.254.117<10.253.254.117>===10.22.22.0/24; erouted; eroute owner: #347
+000 "loa-vpn":     oriented; my_ip=10.3.111.128; their_ip=unset
+000 "loa-vpn":   xauth info: us:client, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "loa-vpn":   modecfg info: us:server, them:none, modecfg policy:pull, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "loa-vpn":   labeled_ipsec:no, loopback:no;
+000 "loa-vpn":    policy_label:unset;
+000 "loa-vpn": 10.3.111.128/32===156.24.23.105[@,+MC+XC+S=C]---156.24.23.1...10.253.254.117===0.0.0.0/0; erouted; eroute owner: #347
+000 "loa-vpn":     oriented; my_ip=10.3.111.128; their_ip=unset
+000 "loa-vpn":   xauth info: us:client, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "loa-vpn":   modecfg info: us:server, them:none, modecfg policy:pull, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "loa-vpn":   labeled_ipsec:no, loopback:no;
+000 "loa-vpn":    policy_label:unset;
+000 "loa-vpn":   ike_life: 3600s; ipsec_life: 28800s; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "loa-vpn":   sha2_truncbug:no; initial_contact:no; cisco_unity:no; send_vendorid:no;
+000 "loa-vpn":   policy: PSK+ENCRYPT+TUNNEL+DONT_REKEY+UP+XAUTH+MODECFG_PULL+AGGRESSIVE+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "loa-vpn":   conn_prio: 32,24; interface: eth0; metric: 0; mtu: unset; sa_prio:auto;
+000 "loa-vpn":   dpd: action:hold; delay:30; timeout:120; nat-t: force_encaps:no; nat_keepalive:yes; ikev1_natt:both
+000 "loa-vpn":   newest ISAKMP SA: #346; newest IPsec SA: #347;
+000 "loa-vpn":   IKE algorithms wanted: AES_CBC(7)_256-SHA1(2)_000-MODP1536(5)
+000 "loa-vpn":   IKE algorithms found:  AES_CBC(7)_256-SHA1(2)_160-MODP1536(5)
+000 "loa-vpn":   IKE algorithm newest: AES_CBC_256-SHA1-MODP1536
+000 "loa-vpn":   ESP algorithms wanted: AES(12)_256-SHA1(2)_000; pfsgroup=MODP1536(5)
+000 "loa-vpn":   ESP algorithms loaded: AES(12)_256-SHA1(2)_000
+000 "loa-vpn":   ESP algorithm newest: AES_256-HMAC_SHA1; pfsgroup=<N/A>
+000
+000 Total IPsec connections: loaded 1, active 1
+000
+000 State list:
+000
+000 #347: "loa-vpn":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE_IF_USED in 24272s; newest IPSEC; eroute owner; isakmp#346; idle; import:admin initiate
+000 #347: "loa-vpn" esp.f9ab7862@10.253.254.117 esp.d962e559@156.24.23.105 tun.0@10.253.254.117 tun.0@156.24.23.105 ref=0 refhim=4294901761 Traffic: ESPin=19KB ESPout=113KB! ESPmax=4194303B XAUTHuser=nkaplan1
+000 #346: "loa-vpn":500 STATE_MAIN_I4 (ISAKMP SA established); EVENT_SA_EXPIRE in 14s; newest ISAKMP; lastdpd=4s(seq in:0 out:0); idle; import:admin initiate
+000
+000 Shunt list:
+
+-----------------------
+
+# ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast qlen 1000
+    link/ether 00:18:7d:35:c0:ff brd ff:ff:ff:ff:ff:ff
+    inet 156.24.23.105/24 brd 156.24.23.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet 10.3.111.128/32 scope global eth0
+       valid_lft forever preferred_lft forever
+3: eth1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast qlen 1000
+    link/ether 00:18:7d:35:c0:fe brd ff:ff:ff:ff:ff:ff
+
+
+------------------------
+
+# basic configuration
+config setup
+        protostack=netkey
+        interfaces=%none
+        nat_traversal=yes
+        virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12
+        plutodebug=all
+        plutostderrlog=/tmp/pluto.log
+
+conn %default
+        type=tunnel
+        auto=add
+        authby=secret
+        ike=aes256-sha1;modp1536
+        phase2alg=aes256-sha1;modp1536
+        ikev2=never
+        leftxauthclient=yes
+        leftmodecfgclient=yes
+        modecfgpull=yes
+        dpddelay=30
+        dpdtimeout=120
+        dpdaction=restart
+        pfs=no
+        aggrmode=yes
+        salifetime=28800s
+        rekey=no
+        keyingtries=%forever
+        ikelifetime=3600s
+
+# Add connections here
+
+conn loa-vpn
+        left=156.24.23.105
+        leftid=@loa-vpn
+        leftnexthop=156.24.23.1
+        right=10.253.254.117
+        rightid=10.253.254.117
+        rightsubnet=10.22.22.0/24
+

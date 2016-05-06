@@ -1,0 +1,23 @@
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: initiating Main Mode
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: received Vendor ID payload [Dead Peer Detection]
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: ignoring Vendor ID payload [FRAGMENTATION]
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: received Vendor ID payload [RFC 3947] method set to=109 
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: enabling possible NAT-traversal with method 4
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: transition from state STATE_MAIN_I1 to state STATE_MAIN_I2
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: STATE_MAIN_I2: sent MI2, expecting MR2
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: I will NOT send an initial contact payload
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: NAT-Traversal: Result using RFC 3947 (NAT-Traversal): no NAT detected
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: I am sending my cert
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: I am sending a certificate request
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: Not sending INITIAL_CONTACT
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: transition from state STATE_MAIN_I2 to state STATE_MAIN_I3
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: STATE_MAIN_I3: sent MI3, expecting MR3
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: received Vendor ID payload [CAN-IKEv2]
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: Main mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com'
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: no crl from issuer "C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com" found (strict=no)
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: transition from state STATE_MAIN_I3 to state STATE_MAIN_I4
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #1: STATE_MAIN_I4: ISAKMP SA established {auth=OAKLEY_RSA_SIG cipher=aes_128 prf=oakley_sha group=modp2048}
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #2: initiating Quick Mode RSASIG+ENCRYPT+TUNNEL+PFS+UP+IKEv2ALLOW+SAREFTRACK {using isakmp#1 msgid:12495142 proposal=defaults pfsgroup=OAKLEY_GROUP_MODP2048}
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #2: transition from state STATE_QUICK_I1 to state STATE_QUICK_I2
+May  5 16:18:45 ester4 pluto[3450]: "home-work-cacert" #2: STATE_QUICK_I2: sent QI2, IPsec SA established tunnel mode {ESP=>0x005b158f <0x416fef85 xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=none DPD=none}
+

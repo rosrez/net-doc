@@ -1,0 +1,45 @@
+# ip xfrm
+Usage: ip xfrm XFRM_OBJECT { COMMAND | help }
+where  XFRM_OBJECT := { state | policy | monitor }
+[root@ester4 orosovet]# ip xfrm policy
+src 192.168.1.227/32 dst 192.168.1.5/32 
+    dir out priority 2080 ptype main 
+    tmpl src 192.168.1.227 dst 192.168.1.5
+        proto esp reqid 16385 mode tunnel
+src 192.168.1.5/32 dst 192.168.1.227/32 
+    dir fwd priority 2080 ptype main 
+    tmpl src 192.168.1.5 dst 192.168.1.227
+        proto esp reqid 16385 mode tunnel
+src 192.168.1.5/32 dst 192.168.1.227/32 
+    dir in priority 2080 ptype main 
+    tmpl src 192.168.1.5 dst 192.168.1.227
+        proto esp reqid 16385 mode tunnel
+src ::/0 dst ::/0 
+    dir 4 priority 0 ptype main 
+src ::/0 dst ::/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 4 priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+    dir 3 priority 0 ptype main 
+
