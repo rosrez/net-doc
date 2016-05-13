@@ -1,0 +1,17 @@
+$ xc 'spd_next[\t ]=[^=]'
+./programs/pluto/initiate.c:            shunt_spd->spd_next = nc->spd.spd_next;
+./programs/pluto/initiate.c:            nc->spd.spd_next = shunt_spd;
+./programs/pluto/connections.c:         c->spd.spd_next = NULL;
+./programs/pluto/connections.c: d->spd.spd_next = NULL;
+./programs/pluto/ikev1_xauth.c:                                 tmp_spd->spd_next = NULL;
+./programs/pluto/ikev1_xauth.c:                                 last_spd->spd_next = tmp_spd;
+
+The extra spd_route is caused by one of the Mode Config response payloads carried by XAUTH.
+
+| ****parse ISAKMP ModeCfg attribute:
+|    ModeCfg attr type: CISCO_SPLIT_INC
+|    length/value: 14
+| Received Cisco Split tunnel route(s)
+"loa-vpn" #1: Received subnet 0.0.0.0/0, maskbits 0
+
+Then ipsec transitions to state STATE_MAIN_I4
