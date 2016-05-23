@@ -1,0 +1,90 @@
+@@
+1. CONFIG - SERVER
+
+conn home-work-cacert
+        # our local address (static, so that the roadwarrior can find us)
+        left=192.168.1.5
+        # If the roadwarrior isn't directly accessible (i.e. is not on the same subnet as we are),
+        # we need to explicitly supply the leftnexthop address so that our host knows where to route IPSec traffic
+        # NOTE: if we use left=%defaultroute we *must not* set leftnexthop
+        # NOTE: when we are connected to peer directly, we *need not* set leftnexthop
+        # NOTE: adding leftnexthop results in our local host adding a routing table entry to route our traffic
+        #       to the peer through the nexthop address
+        # leftnexthop=192.168.1.186
+        # our certificate
+        leftcert=home
+        # our id from our certificate
+        leftid=%fromcert
+        # %any denotes unknown IP address of the remote peer
+        right=%any
+        # The following is to signify that our roadwarrior can either use a public IP address (%no)
+        # or belong to one of the ranges specified in the virtual_private section of ipsec.conf
+        rightsubnet=vhost:%no,%priv
+        # trust our own CA
+        # rightca=%same
+        # remote's id from remote's certificate
+        rightid=%fromcert
+        # Just load the connection since it must be initiated by the remote peer (we don't know its address)
+        auto=add
+        # authentication method is by RSA keys (the default)
+        authby=rsasig
+
+NOTE that in our LAN setup, 192.168.1.5 and 192.168.1.186 are directly visible, so we must not set leftnexthop.
+
+@@
+2. CONNECTION ESTABLISHMENT - PACKETS
+
+# tcpdump -nni enp2s0 esp or udp port 500 or udp port 4500 or icmp
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:10:46.793733 IP 192.168.1.186.500 > 192.168.1.5.500: isakmp: phase 1 I ident
+16:10:46.794252 IP 192.168.1.5.500 > 192.168.1.186.500: isakmp: phase 1 R ident
+16:10:46.821074 IP 192.168.1.186.500 > 192.168.1.5.500: isakmp: phase 1 I ident
+16:10:46.824729 IP 192.168.1.5.500 > 192.168.1.186.500: isakmp: phase 1 R ident
+16:10:46.843110 IP 192.168.1.186.4500 > 192.168.1.5.4500: NONESP-encap: isakmp: phase 1 I ident[E]
+16:10:46.857875 IP 192.168.1.5.4500 > 192.168.1.186.4500: NONESP-encap: isakmp: phase 1 R ident[E]
+16:10:46.863546 IP 192.168.1.186.4500 > 192.168.1.5.4500: NONESP-encap: isakmp: phase 2/others I oakley-quick[E]
+16:10:46.918994 IP 192.168.1.5.4500 > 192.168.1.186.4500: NONESP-encap: isakmp: phase 2/others R oakley-quick[E]
+16:10:46.967643 IP 192.168.1.186.4500 > 192.168.1.5.4500: NONESP-encap: isakmp: phase 2/others I oakley-quick[E]
+16:11:06.996857 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+16:11:06.998873 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+16:11:27.135241 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+16:11:47.054683 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+16:11:47.054950 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+16:12:08.094247 IP 192.168.1.186.4500 > 192.168.1.5.4500: isakmp-nat-keep-alive
+
+NOTE the keepalive packets that the initiator (the peer behind NAT) sends to the responder.
+Only this direction of keepalive packets is supported.
+
+@@
+3. CONNECTION ESTABLISHMENT - LOGS
+
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: ignoring Vendor ID payload [Openswan(project)]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: received Vendor ID payload [Dead Peer Detection]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: received Vendor ID payload [RFC 3947]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: ignoring Vendor ID payload [draft-ietf-ipsec-nat-t-ike-03]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: ignoring Vendor ID payload [draft-ietf-ipsec-nat-t-ike-02_n]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: ignoring Vendor ID payload [draft-ietf-ipsec-nat-t-ike-02]
+May 23 16:10:46 localhost pluto[9268]: packet from 192.168.1.186:500: ignoring Vendor ID payload [draft-ietf-ipsec-nat-t-ike-00]
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: enabling possible NAT-traversal with method RFC 3947 (NAT-Traversal)
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: responding to Main Mode from unknown peer 192.168.1.186
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: transition from state STATE_MAIN_R0 to state STATE_MAIN_R1
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: STATE_MAIN_R1: sent MR1, expecting MI2
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: NAT-Traversal: Result using RFC 3947 (NAT-Traversal) sender port 500: peer behind NAT
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: transition from state STATE_MAIN_R1 to state STATE_MAIN_R2
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: STATE_MAIN_R2: sent MR2, expecting MI3
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: Main mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work'
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: certificate CN=Work,OU=Software,O=MyCorp CA,ST=Rhode Island,C=US OK
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: I am sending my cert
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: transition from state STATE_MAIN_R2 to state STATE_MAIN_R3
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: new NAT mapping for #1, was 192.168.1.186:500, now 192.168.1.186:4500
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: STATE_MAIN_R3: sent MR3, ISAKMP SA established {auth=RSA_SIG cipher=aes_128 integ=sha group=MODP2048}
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #1: the peer proposed: 192.168.1.5/32:0/0 -> 192.168.20.203/32:0/0
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2: responding to Quick Mode proposal {msgid:b35df80f}
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2:     us: 192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2:   them: 192.168.1.186[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work]===192.168.20.203/32
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2: transition from state STATE_QUICK_R0 to state STATE_QUICK_R1
+May 23 16:10:46 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2: STATE_QUICK_R1: sent QR1, inbound IPsec SA installed, expecting QI2 tunnel mode {ESP/NAT=>0xf4718b9c <0x1378229f xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=192.168.1.186:4500 DPD=passive}
+May 23 16:10:47 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2: transition from state STATE_QUICK_R1 to state STATE_QUICK_R2
+May 23 16:10:47 localhost pluto[9268]: "home-work-cacert"[1] 192.168.1.186 #2: STATE_QUICK_R2: IPsec SA established tunnel mode {ESP/NAT=>0xf4718b9c <0x1378229f xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=192.168.1.186:4500 DPD=passive}
+
