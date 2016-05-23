@@ -8,3 +8,11 @@ Libreswan 3.16:
 
 May 13 10:03:03 localhost pluto[4282]: "/etc/ipsec.d/home-cacert.secrets" line 1: WARNING: The :RSA secrets entries for X.509 certificates are no longer needed
 
+@@
+3. INTERNAL_IP4_SUBNET:
+
+IKEv1 draft
+https://tools.ietf.org/pdf/draft-dukes-ike-mode-cfg-02.pdf
+
+IKEV2 RFC - current
+https://tools.ietf.org/pdf/rfc7296.pdf
