@@ -1,0 +1,2 @@
+logtime=
+Used to be called plutostderrlogtime= prior to Libreswan 3.14
