@@ -1,0 +1,17 @@
+@@
+1. ip-monitor output format
+
+It remains to be seen how stable the output format of ip-monitor is. If it is, then maybe it can be used to detect various networking events. Otherwise, it's safer to use netlink sockets to capture the events of interest.
+
+EXAMPLES - IPROUTE 4.4.1:
+
+Add route
+192.168.1.186 via 192.168.1.1 dev enp2s0 
+Delete route
+Deleted 192.168.1.186 via 192.168.1.1 dev enp2s0 
+Interface down
+
+Interface up/down
+2: enp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default
+    link/ether 20:cf:30:56:07:0f brd ff:ff:ff:ff:ff:ff
+

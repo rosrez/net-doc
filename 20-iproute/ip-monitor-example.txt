@@ -1,0 +1,92 @@
+@@
+1. BASIC OUTPUT
+
+$ ip monitor
+
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 STALE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 STALE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 STALE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+192.168.1.186 via 192.168.1.1 dev enp2s0 
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 STALE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 STALE
+Deleted 192.168.1.186 via 192.168.1.1 dev enp2s0 
+^C
+
+Most lines of output (PROBE, REACHABLE, STALE) appear by themselves so this indicates some underlying network activity (ARP?)
+
+The remaining lines result from invoking the ip-route command:
+
+# ip route add 192.168.1.186/32 via 192.168.1.1
+# ip route del 192.168.1.186/32
+
+@@
+2. NETWORK INTERFACE GOING DOWN/UP
+
+$ ip monitor
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 PROBE
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+
+>>>
+# ifdown enp2s0
+Device 'enp2s0' successfully disconnected.
+>>>
+
+2: enp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default  <-- THIS IS OUTPUT WHILE ITS STILL UP 
+    link/ether 20:cf:30:56:07:0f brd ff:ff:ff:ff:ff:ff
+Deleted fe80::/64 dev enp2s0  proto kernel  metric 256  pref medium
+Deleted ff00::/8 dev enp2s0  table local  metric 256  pref medium
+delete ff02::16 dev enp2s0 lladdr 33:33:00:00:00:16 NOARP
+delete ff02::2 dev enp2s0 lladdr 33:33:00:00:00:02 NOARP
+delete ff02::1:ff56:70f dev enp2s0 lladdr 33:33:ff:56:07:0f NOARP
+Deleted 2: enp2s0    inet6 fe80::22cf:30ff:fe56:70f/64 scope link 
+       valid_lft forever preferred_lft forever
+Deleted local fe80::22cf:30ff:fe56:70f dev lo  table local  proto none  metric 0  pref medium
+ff00::/8 dev enp2s0  table local  metric 256  pref medium
+Deleted 192.168.1.0/24 dev enp2s0  proto kernel  scope link  src 192.168.1.5  metric 100 
+Deleted 2: enp2s0    inet 192.168.1.5/24 brd 192.168.1.255 scope global enp2s0
+       valid_lft forever preferred_lft forever
+Deleted broadcast 192.168.1.255 dev enp2s0  table local  proto kernel  scope link  src 192.168.1.5 
+Deleted broadcast 192.168.1.0 dev enp2s0  table local  proto kernel  scope link  src 192.168.1.5 
+Deleted local 192.168.1.5 dev enp2s0  table local  proto kernel  scope host  src 192.168.1.5 
+delete 192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+delete 89.70.78.170 dev enp2s0 lladdr a0:c5:62:69:9d:1e STALE
+delete 224.0.0.22 dev enp2s0 lladdr 01:00:5e:00:00:16 NOARP
+delete 224.0.0.251 dev enp2s0 lladdr 01:00:5e:00:00:fb NOARP
+
+
+>>>
+# ifup enp2s0
+Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/1)
+>>>
+
+2: enp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default 
+    link/ether 20:cf:30:56:07:0f brd ff:ff:ff:ff:ff:ff
+Deleted ff00::/8 dev enp2s0  table local  metric 256  pref medium
+ff00::/8 dev enp2s0  table local  metric 256  pref medium
+fe80::/64 dev enp2s0  proto kernel  metric 256  pref medium
+2: enp2s0    inet 192.168.1.5/24 brd 192.168.1.255 scope global enp2s0
+       valid_lft forever preferred_lft forever
+local 192.168.1.5 dev enp2s0  table local  proto kernel  scope host  src 192.168.1.5 
+broadcast 192.168.1.255 dev enp2s0  table local  proto kernel  scope link  src 192.168.1.5 
+192.168.1.0/24 dev enp2s0  proto kernel  scope link  src 192.168.1.5 
+broadcast 192.168.1.0 dev enp2s0  table local  proto kernel  scope link  src 192.168.1.5 
+192.168.1.0/24 dev enp2s0  proto kernel  scope link  src 192.168.1.5  metric 100 
+default via 192.168.1.1 dev enp2s0  proto static  metric 100 
+Deleted 192.168.1.0/24 dev enp2s0  proto kernel  scope link  src 192.168.1.5 
+192.168.1.1 dev enp2s0 lladdr a0:c5:62:69:9d:20 REACHABLE
+2: enp2s0    inet6 fe80::22cf:30ff:fe56:70f/64 scope link 
+       valid_lft forever preferred_lft forever
+local fe80::22cf:30ff:fe56:70f dev lo  table local  proto none  metric 0  pref medium
+2: enp2s0    inet6 fe80::22cf:30ff:fe56:70f/64 scope link 
+       valid_lft forever preferred_lft forever
+
