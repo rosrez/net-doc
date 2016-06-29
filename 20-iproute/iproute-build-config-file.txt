@@ -1,0 +1,35 @@
+$ uname -r
+4.4.6-301.fc23.x86_64
+
+$ git branch
+  master
+* ver4          <--- MADE OUT OF v4.4.0 tag
+
+$ make Config
+sh configure /usr/include
+TC schedulers
+ ATM    no
+ IPT    Package xtables was not found in the pkg-config search path.
+Perhaps you should add the directory containing `xtables.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'xtables' found
+using iptables
+ IPSET  yes
+
+iptables modules directory: Package xtables was not found in the pkg-config search path.
+Perhaps you should add the directory containing `xtables.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'xtables' found
+not found!
+libc has setns: yes
+SELinux support: no
+ELF support: no
+libmnl support: no
+Berkeley DB: no
+
+docs: latex: no
+ WARNING: no docs can be built from LaTeX files
+ sgml2html: no
+ WARNING: no HTML docs can be built from SGML
+
+

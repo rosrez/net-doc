@@ -1,0 +1,34 @@
+@@
+1. POSSIBILITY TO IMPORT CERTIFICATES AT RUNTIME
+
+PW comment
+http://comments.gmane.org/gmane.network.vpn.libreswan.user/670
+
+This was addressed in 3.14 when we moved from the NSS db to the sql
+format. You are able to import the certificate on a running system.
+
+
+@@
+2. NSS & X.509 CERTIFICATES
+
+https://libreswan.org/wiki/3.14_X509
+
+Database changes
+
+Pluto uses an SQL format NSS database, by default in /etc/ipsec.d. This format allows pluto to pick up changes to the database without requiring a restart. When upgrading libreswan to 3.14, the 'ipsec checknss' command run on service startup will attempt to upgrade the existing DBM format database.
+
+    ipsec checknss first detects if an upgrade is needed and runs a certutil --upgrade-merge on the database. If /etc/ipsec.d/nsspassword is present it will also preserve the database password from that file.
+    Any certificates and crls in /etc/ipsec.d/cacerts and /etc/ipsec.d/crls will be imported into the upgraded database. If these are duplicate, or old, it won't replace anything current in the database.
+
+When using crlutil or certutil on the upgraded database, you must always prefix the database path with 'sql:'. For example, to list all certificates:
+
+certutil -L -d sql:/etc/ipsec.d
+
+Running certutil commands without the sql: prefix looks in the directory for different database files that are not read by pluto, so don't get mixed up! Alternately, you can set the NSS_DEFAULT_DB_TYPE environment variable to 'sql:' and use certutil/crlutil as normal.
+
+@@
+3. CERTIFICATE IMPORT
+
+1) Can we import a "user certificate" (i.e. with a private key) directly?
+2) Can we import a signing (CA) certificate directly? - YES.
+   Can we generate our own local user certificate and sign it with a CA cert?

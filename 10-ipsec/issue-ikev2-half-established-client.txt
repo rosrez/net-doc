@@ -1,0 +1,1010 @@
+@@
+0. CLIENT LOG
+
+@@
+1. RECEIVED AUTO --UP FOR CONNECTION: home-work-cacert-ikev2
+
+Jun 15 21:24:42 ester4 pluto[5126]: | *received whack message
+Jun 15 21:24:42 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:24:42 ester4 pluto[5126]: | empty esp_info, returning defaults
+Jun 15 21:24:42 ester4 pluto[5126]: | creating state object #1 at 0x7f706e4e93f0
+Jun 15 21:24:42 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:24:42 ester4 pluto[5126]: | ICOOKIE:  02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:42 ester4 pluto[5126]: | RCOOKIE:  00 00 00 00  00 00 00 00
+Jun 15 21:24:42 ester4 pluto[5126]: | state hash entry 28
+Jun 15 21:24:42 ester4 pluto[5126]: | inserting state object #1 on chain 28
+Jun 15 21:24:42 ester4 pluto[5126]: | inserting event EVENT_SO_DISCARD, timeout in 0 seconds for #1
+Jun 15 21:24:42 ester4 pluto[5126]: | event added at head of queue
+Jun 15 21:24:42 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:24:42 ester4 pluto[5126]: | Queuing pending Quick Mode with 192.168.1.5 "home-work-cacert-ikev2"
+
+@@
+2. INITIATING PARENT SA
+
+Jun 15 21:24:42 ester4 pluto[5126]: "home-work-cacert-ikev2" #1: initiating v2 parent SA
+Jun 15 21:24:42 ester4 pluto[5126]: | no IKE algorithms for this connection 
+Jun 15 21:24:42 ester4 pluto[5126]: | 0: w->pcw_dead: 0 w->pcw_work: 0 cnt: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | asking helper 0 to do build_kenonce op on seq: 1 (len=2776, pcw_work=1)
+Jun 15 21:24:42 ester4 pluto[5126]: | crypto helper write of request: cnt=2776<wlen=2776.  
+Jun 15 21:24:42 ester4 pluto[5126]: | deleting event for #1
+Jun 15 21:24:42 ester4 pluto[5126]: | inserting event EVENT_CRYPTO_FAILED, timeout in 300 seconds for #1
+Jun 15 21:24:42 ester4 pluto[5126]: | event added after event EVENT_PENDING_PHASE2
+Jun 15 21:24:42 ester4 pluto[5126]: | * processed 0 messages from cryptographic helpers 
+Jun 15 21:24:42 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 20 seconds
+Jun 15 21:24:42 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 20 seconds
+Jun 15 21:24:42 ester4 pluto[5126]: | helper 0 read 2768+4/2776 bytes fd: 9
+Jun 15 21:24:42 ester4 pluto[5126]: | helper 0 doing build_kenonce op id: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: Value of Prime:
+Jun 15 21:24:42 ester4 pluto[5126]: |   ff ff ff ff  ff ff ff ff  c9 0f da a2  21 68 c2 34
+Jun 15 21:24:42 ester4 pluto[5126]: |   c4 c6 62 8b  80 dc 1c d1  29 02 4e 08  8a 67 cc 74
+Jun 15 21:24:42 ester4 pluto[5126]: |   02 0b be a6  3b 13 9b 22  51 4a 08 79  8e 34 04 dd
+Jun 15 21:24:42 ester4 pluto[5126]: |   ef 95 19 b3  cd 3a 43 1b  30 2b 0a 6d  f2 5f 14 37
+Jun 15 21:24:42 ester4 pluto[5126]: |   4f e1 35 6d  6d 51 c2 45  e4 85 b5 76  62 5e 7e c6
+Jun 15 21:24:42 ester4 pluto[5126]: |   f4 4c 42 e9  a6 37 ed 6b  0b ff 5c b6  f4 06 b7 ed
+Jun 15 21:24:42 ester4 pluto[5126]: |   ee 38 6b fb  5a 89 9f a5  ae 9f 24 11  7c 4b 1f e6
+Jun 15 21:24:42 ester4 pluto[5126]: |   49 28 66 51  ec e4 5b 3d  c2 00 7c b8  a1 63 bf 05
+Jun 15 21:24:42 ester4 pluto[5126]: |   98 da 48 36  1c 55 d3 9a  69 16 3f a8  fd 24 cf 5f
+Jun 15 21:24:42 ester4 pluto[5126]: |   83 65 5d 23  dc a3 ad 96  1c 62 f3 56  20 85 52 bb
+Jun 15 21:24:42 ester4 pluto[5126]: |   9e d5 29 07  70 96 96 6d  67 0c 35 4e  4a bc 98 04
+Jun 15 21:24:42 ester4 pluto[5126]: |   f1 74 6c 08  ca 18 21 7c  32 90 5e 46  2e 36 ce 3b
+Jun 15 21:24:42 ester4 pluto[5126]: |   e3 9e 77 2c  18 0e 86 03  9b 27 83 a2  ec 07 a2 8f
+Jun 15 21:24:42 ester4 pluto[5126]: |   b5 c5 5d f0  6f 4c 52 c9  de 2b cb f6  95 58 17 18
+Jun 15 21:24:42 ester4 pluto[5126]: |   39 95 49 7c  ea 95 6a e5  15 d2 26 18  98 fa 05 10
+Jun 15 21:24:42 ester4 pluto[5126]: |   15 72 8e 5a  8a ac aa 68  ff ff ff ff  ff ff ff ff
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: Value of base:
+Jun 15 21:24:42 ester4 pluto[5126]: |   02
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: generated dh priv and pub keys: 256 
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: Local DH secret:
+Jun 15 21:24:42 ester4 pluto[5126]: |   70 45 00 60  70 7f 00 00
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: Public DH value sent(computed in NSS):
+Jun 15 21:24:42 ester4 pluto[5126]: |   76 3d c0 3a  16 62 8a 47  54 02 27 3e  4f f0 f6 07
+Jun 15 21:24:42 ester4 pluto[5126]: |   fd ee 79 f1  a8 e6 4f bf  f0 1a 90 17  89 40 c5 0c
+Jun 15 21:24:42 ester4 pluto[5126]: |   41 d9 90 e7  49 d9 99 72  09 f0 1b e7  10 21 46 5b
+Jun 15 21:24:42 ester4 pluto[5126]: |   e7 98 21 17  e8 9d b3 1c  57 6b a9 27  5d d3 69 1c
+Jun 15 21:24:42 ester4 pluto[5126]: |   22 56 49 65  6b 4b cd cc  a0 73 14 44  48 80 9b 8e
+Jun 15 21:24:42 ester4 pluto[5126]: |   30 82 d7 ca  31 5a 52 42  03 ec 37 6f  58 ba 58 fa
+Jun 15 21:24:42 ester4 pluto[5126]: |   37 c9 4a 67  35 08 f4 2c  a3 f3 e1 cd  65 fd 6f 8c
+Jun 15 21:24:42 ester4 pluto[5126]: |   99 25 4a ad  e1 ce 07 af  ed 9a ce b2  c4 9e 0c ab
+Jun 15 21:24:42 ester4 pluto[5126]: |   05 eb be f7  fa c0 91 54  82 2f 93 21  cb c6 a6 b2
+Jun 15 21:24:42 ester4 pluto[5126]: |   7b eb 08 d4  00 3d ba 5c  fb aa f4 77  6b e3 91 0d
+Jun 15 21:24:42 ester4 pluto[5126]: |   1b 0d 9f 87  18 24 65 59  31 7c e1 7a  0c 04 b5 ef
+Jun 15 21:24:42 ester4 pluto[5126]: |   31 fe ee 04  e3 ba 28 e1  a3 e6 af 97  82 af ae 5d
+Jun 15 21:24:42 ester4 pluto[5126]: |   38 e7 ed 1e  96 ce 4c 5b  60 0c f9 79  d2 09 b6 31
+Jun 15 21:24:42 ester4 pluto[5126]: |   03 71 36 4f  8f eb e4 6a  44 fd 05 65  9a 71 36 f4
+Jun 15 21:24:42 ester4 pluto[5126]: |   2d 27 ff a0  f9 04 07 49  81 15 34 f6  b3 fd d5 38
+Jun 15 21:24:42 ester4 pluto[5126]: |   16 aa 8d 58  57 16 f8 f9  16 f7 25 41  6c 9a f7 fe
+Jun 15 21:24:42 ester4 pluto[5126]: | NSS: Local DH public value (pointer):
+Jun 15 21:24:42 ester4 pluto[5126]: |   40 ba 4e 6e  70 7f 00 00
+Jun 15 21:24:42 ester4 pluto[5126]: | Generated nonce:
+Jun 15 21:24:42 ester4 pluto[5126]: |   61 74 2b 75  3c 4d 61 c2  fa 9a 24 18  bf f1 d1 00
+Jun 15 21:24:42 ester4 pluto[5126]: |  
+Jun 15 21:24:42 ester4 pluto[5126]: | helper 0 has finished work (cnt now 1)
+Jun 15 21:24:42 ester4 pluto[5126]: | helper 0 replies to id: q#1
+
+@@
+3. SENDING MESSAGE I1 (#1)
+
+Jun 15 21:24:42 ester4 pluto[5126]: | calling callback function 0x7f706dcd03b0
+Jun 15 21:24:42 ester4 pluto[5126]: | ikev2 parent outI1: calculated ke+nonce, sending I1
+Jun 15 21:24:42 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:24:42 ester4 pluto[5126]: | saving DH priv (local secret) and pub key into state struc
+Jun 15 21:24:42 ester4 pluto[5126]: | **emit ISAKMP Message:
+Jun 15 21:24:42 ester4 pluto[5126]: |    initiator cookie:
+Jun 15 21:24:42 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:42 ester4 pluto[5126]: |    responder cookie:
+Jun 15 21:24:42 ester4 pluto[5126]: |   00 00 00 00  00 00 00 00
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_v2SA
+Jun 15 21:24:42 ester4 pluto[5126]: |    ISAKMP version: IKEv2 version 2.0 (rfc4306)
+Jun 15 21:24:42 ester4 pluto[5126]: |    exchange type: ISAKMP_v2_SA_INIT
+Jun 15 21:24:42 ester4 pluto[5126]: |    flags: ISAKMP_FLAG_INIT
+Jun 15 21:24:42 ester4 pluto[5126]: |    message ID:  00 00 00 00
+Jun 15 21:24:42 ester4 pluto[5126]: | ***emit IKEv2 Security Association Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_v2KE
+Jun 15 21:24:42 ester4 pluto[5126]: |    critical bit: none
+Jun 15 21:24:42 ester4 pluto[5126]: | ****emit IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_P
+Jun 15 21:24:42 ester4 pluto[5126]: |    prop #: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    proto ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    spi size: 0
+Jun 15 21:24:42 ester4 pluto[5126]: |    # transforms: 4
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 12
+Jun 15 21:24:42 ester4 pluto[5126]: | ******emit IKEv2 Attribute Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    af+type: KEY_LENGTH
+Jun 15 21:24:42 ester4 pluto[5126]: |    length/value: 128
+Jun 15 21:24:42 ester4 pluto[5126]: |     [128 is 128??]
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 12
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 3
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 2
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 2
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 2
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_NONE
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 4
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 14
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Proposal Substructure Payload: 44
+Jun 15 21:24:42 ester4 pluto[5126]: | ****emit IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_P
+Jun 15 21:24:42 ester4 pluto[5126]: |    prop #: 2
+Jun 15 21:24:42 ester4 pluto[5126]: |    proto ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    spi size: 0
+Jun 15 21:24:42 ester4 pluto[5126]: |    # transforms: 4
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 12
+Jun 15 21:24:42 ester4 pluto[5126]: | ******emit IKEv2 Attribute Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    af+type: KEY_LENGTH
+Jun 15 21:24:42 ester4 pluto[5126]: |    length/value: 128
+Jun 15 21:24:42 ester4 pluto[5126]: |     [128 is 128??]
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 12
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 3
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 2
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_NONE
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 4
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 14
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Proposal Substructure Payload: 44
+Jun 15 21:24:42 ester4 pluto[5126]: | ****emit IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_P
+Jun 15 21:24:42 ester4 pluto[5126]: |    prop #: 3
+Jun 15 21:24:42 ester4 pluto[5126]: |    proto ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    spi size: 0
+Jun 15 21:24:42 ester4 pluto[5126]: |    # transforms: 4
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 3
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 3
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 2
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 2
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 2
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_NONE
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 4
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 14
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Proposal Substructure Payload: 40
+Jun 15 21:24:42 ester4 pluto[5126]: | ****emit IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_P
+Jun 15 21:24:42 ester4 pluto[5126]: |    prop #: 4
+Jun 15 21:24:42 ester4 pluto[5126]: |    proto ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    spi size: 0
+Jun 15 21:24:42 ester4 pluto[5126]: |    # transforms: 4
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 1
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 3
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 3
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:42 ester4 pluto[5126]: | *****emit IKEv2 Transform Substructure Payload:
+Jun 15 21:24:42 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_T
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform type: 2
+Jun 15 21:24:42 ester4 pluto[5126]: |    transform ID: 1
+Jun 15 21:24:42 ester4 pluto[5126]: | emitting length of IKEv2 Transform Substructure Payload: 8
+Jun 15 21:24:52 ester4 pluto[5126]: |  
+
+@@
+4. RETRANSMITTING MESSAGE I1 - WHY?
+
+Jun 15 21:24:52 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 0 seconds for #2
+Jun 15 21:24:52 ester4 pluto[5126]: | *time to handle event
+Jun 15 21:24:52 ester4 pluto[5126]: | handling event EVENT_v2_RETRANSMIT
+Jun 15 21:24:52 ester4 pluto[5126]: | event after this is EVENT_PENDING_DDNS in 10 seconds
+Jun 15 21:24:52 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:24:52 ester4 pluto[5126]: | handling event EVENT_v2_RETRANSMIT for 192.168.1.5 "home-work-cacert-ikev2" #2
+Jun 15 21:24:52 ester4 pluto[5126]: | sending 1260 bytes for EVENT_v2_RETRANSMIT through eth4:500 to 192.168.1.5:500 (using #2)
+Jun 15 21:24:52 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a  59 df e5 94  cd 09 98 8a
+Jun 15 21:24:52 ester4 pluto[5126]: |   2e 20 23 08  00 00 00 01  00 00 04 ec  23 00 04 d0
+Jun 15 21:24:52 ester4 pluto[5126]: |   83 e9 c2 84  99 8b 5f 23  17 80 55 4d  4e 88 49 c9
+Jun 15 21:24:52 ester4 pluto[5126]: |   fd c2 54 1d  3c 5a 74 37  be 3c f3 60  f5 2b 96 fd
+Jun 15 21:24:52 ester4 pluto[5126]: |   3e bf 9e 1b  b4 67 2d a2  0b 86 89 a0  74 94 1b 5f
+Jun 15 21:24:52 ester4 pluto[5126]: |   ff e3 72 7d  ef 36 f5 66  e7 bc d5 c6  ad 99 43 ac
+Jun 15 21:24:52 ester4 pluto[5126]: |   1f 46 18 e8  4a ef 78 1c  11 7a 92 89  55 89 2d a1
+Jun 15 21:24:52 ester4 pluto[5126]: |   7a ce 72 db  ce 79 86 b5  ec a0 8e 89  c1 45 ed c8
+Jun 15 21:24:52 ester4 pluto[5126]: |   ff 79 7a 80  4b da 0f 3c  c0 25 5f 57  ca 2a 11 3f
+Jun 15 21:24:52 ester4 pluto[5126]: |   ee 5a f0 2c  6a 38 f5 85  69 ec 90 3c  4d 12 5d d8
+Jun 15 21:24:52 ester4 pluto[5126]: |   d2 0c 69 83  3f 9f 3e 11  46 95 bf 51  56 4b 27 e0
+Jun 15 21:24:52 ester4 pluto[5126]: |   17 9c c5 c8  68 a5 ff fb  7d f6 be bd  28 b1 91 1a
+Jun 15 21:24:52 ester4 pluto[5126]: |   d1 8f 16 e2  59 8a 56 83  fd 2f 34 e6  9c 87 1c 1f
+Jun 15 21:24:52 ester4 pluto[5126]: |   f7 87 8c 5a  85 e3 82 eb  8f 8a c9 c9  65 da 42 ec
+Jun 15 21:24:52 ester4 pluto[5126]: |   92 f8 3d 0e  3f 8d 6b f0  71 c1 e9 f0  1e 27 b8 2f
+Jun 15 21:24:52 ester4 pluto[5126]: |   e8 64 bf 11  a5 32 af 15  1b 5a 5b 48  46 f6 55 5b
+Jun 15 21:24:52 ester4 pluto[5126]: |   a8 44 f7 aa  69 86 0a 92  38 6a e5 68  8f 3a ef b2
+Jun 15 21:24:52 ester4 pluto[5126]: |   72 dc e9 18  3b 36 90 bc  c1 54 d2 99  f7 60 fe d8
+Jun 15 21:24:52 ester4 pluto[5126]: |   c1 34 61 de  6d 8d 28 20  6d 9a 47 98  41 c2 5e 09
+Jun 15 21:24:52 ester4 pluto[5126]: |   c3 a6 09 b4  2a 7b be 0e  10 3b ff 4d  2a 8f a6 a9
+Jun 15 21:24:52 ester4 pluto[5126]: |   ee 3b 5c 21  19 a2 fa 14  bb 6a 88 30  8f c7 68 7a
+Jun 15 21:24:52 ester4 pluto[5126]: |   7b 74 95 10  a3 f6 8c 0a  29 91 ac c2  ee 91 b9 92
+Jun 15 21:24:52 ester4 pluto[5126]: |   00 ab 3b 47  0b e5 71 cf  25 cb a2 aa  73 d0 ca e3
+Jun 15 21:24:52 ester4 pluto[5126]: |   77 c7 71 84  df 1a cd 7a  ce fa 6e fb  03 1b ec f3
+Jun 15 21:24:52 ester4 pluto[5126]: |   3f 5a 17 89  4a b4 be ca  0b de f4 da  32 f5 10 be
+Jun 15 21:24:52 ester4 pluto[5126]: |   d2 5e 2d de  e9 e3 5e cd  da 05 91 0a  fb f6 2a 11
+Jun 15 21:24:52 ester4 pluto[5126]: |   7c 94 9e 11  5f e3 7d 34  3c 22 84 47  5e ba 5e 90
+Jun 15 21:24:52 ester4 pluto[5126]: |   99 07 cc cc  9a 7f 8d 90  98 89 b6 f0  3c b5 bd df
+Jun 15 21:24:52 ester4 pluto[5126]: |   4a 21 6e a7  4c 2b e2 ec  e9 8d 8e 1a  b3 68 42 1a
+Jun 15 21:24:52 ester4 pluto[5126]: |   a6 69 47 f0  5f 06 63 cb  3a b2 fe 0a  bb 4a 9a 36
+Jun 15 21:24:52 ester4 pluto[5126]: |   a3 73 6c eb  b6 35 e4 38  5a 07 54 d2  cd 71 bf 71
+Jun 15 21:24:52 ester4 pluto[5126]: |   96 17 aa 22  1f 30 1a 58  c0 c3 28 e7  04 32 86 f5
+Jun 15 21:24:52 ester4 pluto[5126]: |   66 94 bf c0  4f 81 9f c0  b9 84 89 59  19 56 bc 1e
+Jun 15 21:24:52 ester4 pluto[5126]: |   4f ec 09 bf  fe 44 d6 ca  50 22 43 95  6e d3 73 2f
+Jun 15 21:24:52 ester4 pluto[5126]: |   85 fe 29 60  20 24 29 0e  23 3e 64 fe  5c 04 54 2a
+Jun 15 21:24:52 ester4 pluto[5126]: |   30 5f 53 f1  7b 20 f8 f8  4b e5 e8 9f  d6 81 0c 8c
+Jun 15 21:24:52 ester4 pluto[5126]: |   33 ea 8a 1e  fb cb 94 b2  ec 1a e5 8d  4d 3d 49 0b
+Jun 15 21:24:52 ester4 pluto[5126]: |   15 46 ac 68  05 4a e3 b3  82 3a 3a 9e  17 94 de eb
+Jun 15 21:24:52 ester4 pluto[5126]: |   34 b0 03 37  a6 e9 c9 ba  05 81 b5 fb  cb 1c eb 64
+Jun 15 21:24:52 ester4 pluto[5126]: |   e6 f6 3e d2  cd a3 ae 8e  e7 28 00 60  81 60 62 94
+Jun 15 21:24:52 ester4 pluto[5126]: |   d4 d4 50 a3  4d 44 d5 33  3e f1 76 ab  53 81 65 93
+Jun 15 21:24:52 ester4 pluto[5126]: |   24 60 eb 5a  0c 5b ce 74  3b ec 39 91  0f 0f 8b d6
+Jun 15 21:24:52 ester4 pluto[5126]: |   33 98 b2 ad  61 b7 21 1d  20 53 5e 67  b0 c0 1e c4
+Jun 15 21:24:52 ester4 pluto[5126]: |   16 a7 0b e6  15 db 1c 48  28 6d bc c1  40 63 d0 4b
+Jun 15 21:24:52 ester4 pluto[5126]: |   97 bb 06 59  b3 fc 1f 94  62 d7 19 c5  8a d0 58 0b
+Jun 15 21:24:52 ester4 pluto[5126]: |   4b 00 7f fc  cb 63 48 c3  bf 05 09 04  26 8b 19 69
+Jun 15 21:24:52 ester4 pluto[5126]: |   6d fe f3 ec  d0 95 9f 8d  8e fc 0d 37  34 e5 e5 61
+Jun 15 21:24:52 ester4 pluto[5126]: |   db f1 9c 60  37 e0 b1 1e  85 90 59 95  ac 4f 06 6b
+Jun 15 21:24:52 ester4 pluto[5126]: |   e0 f2 31 10  15 ce fc 67  b3 27 1b 95  f3 43 7f e0
+Jun 15 21:24:52 ester4 pluto[5126]: |   10 21 7b c5  eb 3e 53 0e  8b 49 41 2b  73 8e 9a f1
+Jun 15 21:24:52 ester4 pluto[5126]: |   97 a7 ff b4  87 06 a3 e7  5b 88 e5 e9  17 2e 17 fc
+Jun 15 21:24:52 ester4 pluto[5126]: |   7d 7f 11 3c  3d 9b 83 f9  74 f7 12 96  39 72 ae f9
+Jun 15 21:24:52 ester4 pluto[5126]: |   0c e1 7c a4  52 45 0b 75  e5 d8 35 a4  64 37 ec f7
+Jun 15 21:24:52 ester4 pluto[5126]: |   12 31 81 0c  5d f7 b8 f7  41 ca 08 91  05 a1 30 f4
+Jun 15 21:24:52 ester4 pluto[5126]: |   1a 9b a7 c7  af ac 33 ce  29 04 4b 35  07 8f d0 e2
+Jun 15 21:24:52 ester4 pluto[5126]: |   71 99 3c 6e  ee e0 d0 6e  41 0e f7 94  8e 4d a2 86
+Jun 15 21:24:52 ester4 pluto[5126]: |   0c c4 94 0e  ca 65 4f d6  72 b1 94 28  ba a5 92 b3
+Jun 15 21:24:52 ester4 pluto[5126]: |   9f 92 63 a8  fb e4 86 6f  94 cd 5a c3  26 f8 f4 7b
+Jun 15 21:24:52 ester4 pluto[5126]: |   ed e9 89 fc  b3 ac e9 87  a0 e7 99 38  a6 7d 78 23
+Jun 15 21:24:52 ester4 pluto[5126]: |   a0 76 7a d6  c9 af 59 ed  99 cd 4e af  4e 65 ba 4e
+Jun 15 21:24:52 ester4 pluto[5126]: |   84 8b 99 c0  18 50 26 c6  5f 58 f6 e6  79 9f 41 97
+Jun 15 21:24:52 ester4 pluto[5126]: |   81 29 82 a8  dd 4f a3 3f  3d cd 52 28  68 15 49 6a
+Jun 15 21:24:52 ester4 pluto[5126]: |   0c d3 67 a7  27 c2 e3 ff  43 a4 cb 0e  d6 b1 37 46
+Jun 15 21:24:52 ester4 pluto[5126]: |   c4 ad 43 03  af 8c 4a 7c  ef af d5 73  0d 8f a2 d0
+Jun 15 21:24:52 ester4 pluto[5126]: |   51 41 2f af  ac 6f 2c 41  5c 2c b1 93  97 10 fb 43
+Jun 15 21:24:52 ester4 pluto[5126]: |   e8 96 f9 7a  c0 c9 50 8a  73 98 8b 3e  7e 3c 1d be
+Jun 15 21:24:52 ester4 pluto[5126]: |   cf 6d 1c 78  68 b6 00 a3  f7 01 8d bc  d1 e7 0e 29
+Jun 15 21:24:52 ester4 pluto[5126]: |   f4 9a 89 48  fe 89 aa fa  d0 09 bd 42  7d 21 48 96
+Jun 15 21:24:52 ester4 pluto[5126]: |   7f 8a a8 19  0b 5a ad ce  aa d5 58 78  cc 9c b5 69
+Jun 15 21:24:52 ester4 pluto[5126]: |   65 3b ab ec  fa 7c ab 80  fc ee 2d 22  96 6c 2b 84
+Jun 15 21:24:52 ester4 pluto[5126]: |   7d 3f 1a 33  a5 56 6c fb  87 76 90 e8  75 4b f4 47
+Jun 15 21:24:52 ester4 pluto[5126]: |   f1 ab 28 71  b6 7a bc bc  be f7 b0 05  eb 66 29 83
+Jun 15 21:24:52 ester4 pluto[5126]: |   f6 06 da 09  88 7b de 74  40 54 a5 66  cb eb af 16
+Jun 15 21:24:52 ester4 pluto[5126]: |   61 2e 24 37  2b 4c 6a b9  e3 e0 ca cb  43 d6 c9 b0
+Jun 15 21:24:52 ester4 pluto[5126]: |   1f 83 93 72  5b 9d 7a d4  03 e3 35 bf  61 b1 61 ae
+Jun 15 21:24:52 ester4 pluto[5126]: |   6f 2f f0 75  82 af a5 89  9c e1 19 53  1e 5f 13 e3
+Jun 15 21:24:52 ester4 pluto[5126]: |   ce 8a b1 1d  49 44 83 80  55 46 e5 cb  ce b9 57 5c
+Jun 15 21:24:52 ester4 pluto[5126]: |   62 4e 4b e0  68 04 1e e5  c6 a2 c6 87  ca 0b 7f f1
+Jun 15 21:24:52 ester4 pluto[5126]: |   91 3e 68 58  bb 39 8a dd  91 9c 30 3a
+Jun 15 21:24:52 ester4 pluto[5126]: | inserting event EVENT_v2_RETRANSMIT, timeout in 20 seconds for #2
+Jun 15 21:24:52 ester4 pluto[5126]: | event added after event EVENT_PENDING_DDNS
+Jun 15 21:24:52 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 10 seconds
+Jun 15 21:24:52 ester4 pluto[5126]: |  
+
+@@
+5. RECEIVED MESSAGE R1 - RESPONSE TO MESSAGE I1
+
+Jun 15 21:24:52 ester4 pluto[5126]: | *received 429 bytes from 192.168.1.5:500 on eth4 (port=500)
+Jun 15 21:24:52 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a  59 df e5 94  cd 09 98 8a
+Jun 15 21:24:52 ester4 pluto[5126]: |   21 20 22 20  00 00 00 00  00 00 01 ad  22 00 00 30
+Jun 15 21:24:52 ester4 pluto[5126]: |   00 00 00 2c  01 01 00 04  03 00 00 0c  01 00 00 0c
+Jun 15 21:24:52 ester4 pluto[5126]: |   80 0e 00 80  03 00 00 08  03 00 00 02  03 00 00 08
+Jun 15 21:24:52 ester4 pluto[5126]: |   02 00 00 02  00 00 00 08  04 00 00 0e  28 00 01 08
+Jun 15 21:24:52 ester4 pluto[5126]: |   00 0e 00 00  9b c9 7a c8  de 92 4d 8b  f2 d0 a7 16
+Jun 15 21:24:52 ester4 pluto[5126]: |   44 9a 9e 4a  07 a8 ea 9f  8e df d7 bb  a4 f8 48 0d
+Jun 15 21:24:52 ester4 pluto[5126]: |   e1 f2 04 f1  f3 57 f5 e0  e9 6c 4d b8  b5 66 31 01
+Jun 15 21:24:52 ester4 pluto[5126]: |   ec 5c 5a e6  41 46 b3 36  6b fb c5 74  3c 90 bd e7
+Jun 15 21:24:52 ester4 pluto[5126]: |   67 53 d8 e3  22 39 b3 92  91 1c eb 40  48 04 04 8e
+Jun 15 21:24:52 ester4 pluto[5126]: |   c4 01 fc 84  46 d8 86 fa  79 c2 d2 ea  f8 6e 13 52
+Jun 15 21:24:52 ester4 pluto[5126]: |   58 35 cf 36  99 82 0f 0c  d5 85 69 1e  cf 08 0e ac
+Jun 15 21:24:52 ester4 pluto[5126]: |   0c ad f6 73  ae 32 5e 5b  8b 75 0c ba  f1 19 77 fa
+Jun 15 21:24:52 ester4 pluto[5126]: |   74 dc 86 8c  5b 39 68 87  1b aa 2c 7c  c3 65 aa b0
+Jun 15 21:24:52 ester4 pluto[5126]: |   f5 a6 7f da  0b 21 6d c1  bc 08 cf b8  6b c2 25 87
+Jun 15 21:24:52 ester4 pluto[5126]: |   54 0f e0 95  cd c1 70 dd  f9 ce 53 29  2f e0 46 3d
+Jun 15 21:24:52 ester4 pluto[5126]: |   48 cb e0 87  5c 66 2b 52  92 5d fd af  66 b0 33 14
+Jun 15 21:24:52 ester4 pluto[5126]: |   19 f2 d3 27  f5 be a5 86  28 b3 ae 69  4d 5e 97 52
+Jun 15 21:24:52 ester4 pluto[5126]: |   ba 87 2f 31  41 23 2b 41  6d cd 86 61  09 0a 37 25
+Jun 15 21:24:52 ester4 pluto[5126]: |   7d 99 59 06  a0 15 c0 ac  f9 30 0a c4  c5 d6 7f 46
+Jun 15 21:24:52 ester4 pluto[5126]: |   e3 9b 63 5c  ee 70 ec 3d  b5 4f f6 15  bc 91 0e 7f
+Jun 15 21:24:52 ester4 pluto[5126]: |   88 4b 36 f8  29 00 00 14  7a 07 a4 fc  4b 7d dd 65
+Jun 15 21:24:52 ester4 pluto[5126]: |   50 07 0d dc  ee a6 d6 e7  29 00 00 08  00 00 40 2e
+Jun 15 21:24:52 ester4 pluto[5126]: |   29 00 00 1c  00 00 40 04  5b 56 28 ae  f4 0f 7d 74
+Jun 15 21:24:52 ester4 pluto[5126]: |   8d 83 3c 1c  d1 39 0b 2f  0d 9b 2a 23  26 00 00 1c
+Jun 15 21:24:52 ester4 pluto[5126]: |   00 00 40 05  69 bf f1 0b  8f 69 8b 8b  8a 22 1b 16
+Jun 15 21:24:52 ester4 pluto[5126]: |   3f 60 3a 29  ba 5f 35 23  00 00 00 05  04
+Jun 15 21:24:52 ester4 pluto[5126]: | **parse ISAKMP Message:
+Jun 15 21:24:52 ester4 pluto[5126]: |    initiator cookie:
+Jun 15 21:24:52 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:52 ester4 pluto[5126]: |    responder cookie:
+Jun 15 21:24:52 ester4 pluto[5126]: |   59 df e5 94  cd 09 98 8a
+Jun 15 21:24:52 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_v2SA
+Jun 15 21:24:52 ester4 pluto[5126]: |    ISAKMP version: IKEv2 version 2.0 (rfc4306)
+Jun 15 21:24:52 ester4 pluto[5126]: |    exchange type: ISAKMP_v2_SA_INIT
+Jun 15 21:24:52 ester4 pluto[5126]: |    flags: ISAKMP_FLAG_RESPONSE
+Jun 15 21:24:52 ester4 pluto[5126]: |    message ID:  00 00 00 00
+Jun 15 21:24:52 ester4 pluto[5126]: |    length: 429
+Jun 15 21:24:52 ester4 pluto[5126]: |  processing version=2.0 packet with exchange type=ISAKMP_v2_SA_INIT (34)
+Jun 15 21:24:52 ester4 pluto[5126]: | I am receiving an IKE Response
+Jun 15 21:24:52 ester4 pluto[5126]: | I am the IKE SA Original Initiator
+Jun 15 21:24:52 ester4 pluto[5126]: | I am IKE SA Initiator
+Jun 15 21:24:52 ester4 pluto[5126]: | ICOOKIE:  02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:52 ester4 pluto[5126]: | RCOOKIE:  59 df e5 94  cd 09 98 8a
+Jun 15 21:24:52 ester4 pluto[5126]: | state hash entry 7
+Jun 15 21:24:52 ester4 pluto[5126]: | v2 peer and cookies match on #1
+Jun 15 21:24:52 ester4 pluto[5126]: | v2 state object #1 found, in STATE_PARENT_I2
+Jun 15 21:24:52 ester4 pluto[5126]: | ended up with STATE_IKEv2_ROOF
+Jun 15 21:24:52 ester4 pluto[5126]: | * processed 0 messages from cryptographic helpers 
+Jun 15 21:24:52 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 10 seconds
+Jun 15 21:24:52 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 10 seconds
+Jun 15 21:25:02 ester4 pluto[5126]: |  
+Jun 15 21:25:02 ester4 pluto[5126]: | next event EVENT_PENDING_DDNS in 0 seconds
+Jun 15 21:25:02 ester4 pluto[5126]: | *time to handle event
+Jun 15 21:25:02 ester4 pluto[5126]: | handling event EVENT_PENDING_DDNS
+Jun 15 21:25:02 ester4 pluto[5126]: | event after this is EVENT_v2_RETRANSMIT in 10 seconds
+Jun 15 21:25:02 ester4 pluto[5126]: | inserting event EVENT_PENDING_DDNS, timeout in 60 seconds
+Jun 15 21:25:02 ester4 pluto[5126]: | event added after event EVENT_v2_RETRANSMIT for #2
+Jun 15 21:25:02 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 10 seconds for #2
+Jun 15 21:25:12 ester4 pluto[5126]: |  
+
+@@
+6. RECEIVED XFRM_MSG_EXPIRE FROM KERNEL - WHAT'S THIS? MESSAGE EXPIRED AFTER 10 SECONDS?
+
+Jun 15 21:25:12 ester4 pluto[5126]: | *received kernel message
+Jun 15 21:25:12 ester4 pluto[5126]: | netlink_get: XFRM_MSG_EXPIRE message
+Jun 15 21:25:12 ester4 pluto[5126]: | * processed 0 messages from cryptographic helpers 
+Jun 15 21:25:12 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 0 seconds for #2
+Jun 15 21:25:12 ester4 pluto[5126]: | *time to handle event
+Jun 15 21:25:12 ester4 pluto[5126]: | handling event EVENT_v2_RETRANSMIT
+Jun 15 21:25:12 ester4 pluto[5126]: | event after this is EVENT_PENDING_DDNS in 50 seconds
+
+
+@@
+7. RETRANSMIT MESSAGE I1
+
+Jun 15 21:25:12 ester4 pluto[5126]: | processing connection home-work-cacert-ikev2
+Jun 15 21:25:12 ester4 pluto[5126]: | handling event EVENT_v2_RETRANSMIT for 192.168.1.5 "home-work-cacert-ikev2" #2
+Jun 15 21:25:12 ester4 pluto[5126]: | sending 1260 bytes for EVENT_v2_RETRANSMIT through eth4:500 to 192.168.1.5:500 (using #2)
+Jun 15 21:25:12 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a  59 df e5 94  cd 09 98 8a
+Jun 15 21:25:12 ester4 pluto[5126]: |   2e 20 23 08  00 00 00 01  00 00 04 ec  23 00 04 d0
+Jun 15 21:25:12 ester4 pluto[5126]: |   83 e9 c2 84  99 8b 5f 23  17 80 55 4d  4e 88 49 c9
+Jun 15 21:25:12 ester4 pluto[5126]: |   fd c2 54 1d  3c 5a 74 37  be 3c f3 60  f5 2b 96 fd
+Jun 15 21:25:12 ester4 pluto[5126]: |   3e bf 9e 1b  b4 67 2d a2  0b 86 89 a0  74 94 1b 5f
+Jun 15 21:25:12 ester4 pluto[5126]: |   ff e3 72 7d  ef 36 f5 66  e7 bc d5 c6  ad 99 43 ac
+Jun 15 21:25:12 ester4 pluto[5126]: |   1f 46 18 e8  4a ef 78 1c  11 7a 92 89  55 89 2d a1
+Jun 15 21:25:12 ester4 pluto[5126]: |   7a ce 72 db  ce 79 86 b5  ec a0 8e 89  c1 45 ed c8
+Jun 15 21:25:12 ester4 pluto[5126]: |   ff 79 7a 80  4b da 0f 3c  c0 25 5f 57  ca 2a 11 3f
+Jun 15 21:25:12 ester4 pluto[5126]: |   ee 5a f0 2c  6a 38 f5 85  69 ec 90 3c  4d 12 5d d8
+Jun 15 21:25:12 ester4 pluto[5126]: |   d2 0c 69 83  3f 9f 3e 11  46 95 bf 51  56 4b 27 e0
+Jun 15 21:25:12 ester4 pluto[5126]: |   17 9c c5 c8  68 a5 ff fb  7d f6 be bd  28 b1 91 1a
+Jun 15 21:25:12 ester4 pluto[5126]: |   d1 8f 16 e2  59 8a 56 83  fd 2f 34 e6  9c 87 1c 1f
+Jun 15 21:25:12 ester4 pluto[5126]: |   f7 87 8c 5a  85 e3 82 eb  8f 8a c9 c9  65 da 42 ec
+Jun 15 21:25:12 ester4 pluto[5126]: |   92 f8 3d 0e  3f 8d 6b f0  71 c1 e9 f0  1e 27 b8 2f
+Jun 15 21:25:12 ester4 pluto[5126]: |   e8 64 bf 11  a5 32 af 15  1b 5a 5b 48  46 f6 55 5b
+Jun 15 21:25:12 ester4 pluto[5126]: |   a8 44 f7 aa  69 86 0a 92  38 6a e5 68  8f 3a ef b2
+Jun 15 21:25:12 ester4 pluto[5126]: |   72 dc e9 18  3b 36 90 bc  c1 54 d2 99  f7 60 fe d8
+Jun 15 21:25:12 ester4 pluto[5126]: |   c1 34 61 de  6d 8d 28 20  6d 9a 47 98  41 c2 5e 09
+Jun 15 21:25:12 ester4 pluto[5126]: |   c3 a6 09 b4  2a 7b be 0e  10 3b ff 4d  2a 8f a6 a9
+Jun 15 21:25:12 ester4 pluto[5126]: |   ee 3b 5c 21  19 a2 fa 14  bb 6a 88 30  8f c7 68 7a
+Jun 15 21:25:12 ester4 pluto[5126]: |   7b 74 95 10  a3 f6 8c 0a  29 91 ac c2  ee 91 b9 92
+Jun 15 21:25:12 ester4 pluto[5126]: |   00 ab 3b 47  0b e5 71 cf  25 cb a2 aa  73 d0 ca e3
+Jun 15 21:25:12 ester4 pluto[5126]: |   77 c7 71 84  df 1a cd 7a  ce fa 6e fb  03 1b ec f3
+Jun 15 21:25:12 ester4 pluto[5126]: |   3f 5a 17 89  4a b4 be ca  0b de f4 da  32 f5 10 be
+Jun 15 21:25:12 ester4 pluto[5126]: |   d2 5e 2d de  e9 e3 5e cd  da 05 91 0a  fb f6 2a 11
+Jun 15 21:25:12 ester4 pluto[5126]: |   7c 94 9e 11  5f e3 7d 34  3c 22 84 47  5e ba 5e 90
+Jun 15 21:25:12 ester4 pluto[5126]: |   99 07 cc cc  9a 7f 8d 90  98 89 b6 f0  3c b5 bd df
+Jun 15 21:25:12 ester4 pluto[5126]: |   4a 21 6e a7  4c 2b e2 ec  e9 8d 8e 1a  b3 68 42 1a
+Jun 15 21:25:12 ester4 pluto[5126]: |   a6 69 47 f0  5f 06 63 cb  3a b2 fe 0a  bb 4a 9a 36
+Jun 15 21:25:12 ester4 pluto[5126]: |   a3 73 6c eb  b6 35 e4 38  5a 07 54 d2  cd 71 bf 71
+Jun 15 21:25:12 ester4 pluto[5126]: |   96 17 aa 22  1f 30 1a 58  c0 c3 28 e7  04 32 86 f5
+Jun 15 21:25:12 ester4 pluto[5126]: |   66 94 bf c0  4f 81 9f c0  b9 84 89 59  19 56 bc 1e
+Jun 15 21:25:12 ester4 pluto[5126]: |   4f ec 09 bf  fe 44 d6 ca  50 22 43 95  6e d3 73 2f
+Jun 15 21:25:12 ester4 pluto[5126]: |   85 fe 29 60  20 24 29 0e  23 3e 64 fe  5c 04 54 2a
+Jun 15 21:25:12 ester4 pluto[5126]: |   30 5f 53 f1  7b 20 f8 f8  4b e5 e8 9f  d6 81 0c 8c
+Jun 15 21:25:12 ester4 pluto[5126]: |   33 ea 8a 1e  fb cb 94 b2  ec 1a e5 8d  4d 3d 49 0b
+Jun 15 21:25:12 ester4 pluto[5126]: |   15 46 ac 68  05 4a e3 b3  82 3a 3a 9e  17 94 de eb
+Jun 15 21:25:12 ester4 pluto[5126]: |   34 b0 03 37  a6 e9 c9 ba  05 81 b5 fb  cb 1c eb 64
+Jun 15 21:25:12 ester4 pluto[5126]: |   e6 f6 3e d2  cd a3 ae 8e  e7 28 00 60  81 60 62 94
+Jun 15 21:25:12 ester4 pluto[5126]: |   d4 d4 50 a3  4d 44 d5 33  3e f1 76 ab  53 81 65 93
+Jun 15 21:25:12 ester4 pluto[5126]: |   24 60 eb 5a  0c 5b ce 74  3b ec 39 91  0f 0f 8b d6
+Jun 15 21:25:12 ester4 pluto[5126]: |   33 98 b2 ad  61 b7 21 1d  20 53 5e 67  b0 c0 1e c4
+Jun 15 21:25:12 ester4 pluto[5126]: |   16 a7 0b e6  15 db 1c 48  28 6d bc c1  40 63 d0 4b
+Jun 15 21:25:12 ester4 pluto[5126]: |   97 bb 06 59  b3 fc 1f 94  62 d7 19 c5  8a d0 58 0b
+Jun 15 21:25:12 ester4 pluto[5126]: |   4b 00 7f fc  cb 63 48 c3  bf 05 09 04  26 8b 19 69
+Jun 15 21:25:12 ester4 pluto[5126]: |   6d fe f3 ec  d0 95 9f 8d  8e fc 0d 37  34 e5 e5 61
+Jun 15 21:25:12 ester4 pluto[5126]: |   db f1 9c 60  37 e0 b1 1e  85 90 59 95  ac 4f 06 6b
+Jun 15 21:25:12 ester4 pluto[5126]: |   e0 f2 31 10  15 ce fc 67  b3 27 1b 95  f3 43 7f e0
+Jun 15 21:25:12 ester4 pluto[5126]: |   10 21 7b c5  eb 3e 53 0e  8b 49 41 2b  73 8e 9a f1
+Jun 15 21:25:12 ester4 pluto[5126]: |   97 a7 ff b4  87 06 a3 e7  5b 88 e5 e9  17 2e 17 fc
+Jun 15 21:25:12 ester4 pluto[5126]: |   7d 7f 11 3c  3d 9b 83 f9  74 f7 12 96  39 72 ae f9
+Jun 15 21:25:12 ester4 pluto[5126]: |   0c e1 7c a4  52 45 0b 75  e5 d8 35 a4  64 37 ec f7
+Jun 15 21:25:12 ester4 pluto[5126]: |   12 31 81 0c  5d f7 b8 f7  41 ca 08 91  05 a1 30 f4
+Jun 15 21:25:12 ester4 pluto[5126]: |   1a 9b a7 c7  af ac 33 ce  29 04 4b 35  07 8f d0 e2
+Jun 15 21:25:12 ester4 pluto[5126]: |   71 99 3c 6e  ee e0 d0 6e  41 0e f7 94  8e 4d a2 86
+Jun 15 21:25:12 ester4 pluto[5126]: |   0c c4 94 0e  ca 65 4f d6  72 b1 94 28  ba a5 92 b3
+Jun 15 21:25:12 ester4 pluto[5126]: |   9f 92 63 a8  fb e4 86 6f  94 cd 5a c3  26 f8 f4 7b
+Jun 15 21:25:12 ester4 pluto[5126]: |   ed e9 89 fc  b3 ac e9 87  a0 e7 99 38  a6 7d 78 23
+Jun 15 21:25:12 ester4 pluto[5126]: |   a0 76 7a d6  c9 af 59 ed  99 cd 4e af  4e 65 ba 4e
+Jun 15 21:25:12 ester4 pluto[5126]: |   84 8b 99 c0  18 50 26 c6  5f 58 f6 e6  79 9f 41 97
+Jun 15 21:25:12 ester4 pluto[5126]: |   81 29 82 a8  dd 4f a3 3f  3d cd 52 28  68 15 49 6a
+Jun 15 21:25:12 ester4 pluto[5126]: |   0c d3 67 a7  27 c2 e3 ff  43 a4 cb 0e  d6 b1 37 46
+Jun 15 21:25:12 ester4 pluto[5126]: |   c4 ad 43 03  af 8c 4a 7c  ef af d5 73  0d 8f a2 d0
+Jun 15 21:25:12 ester4 pluto[5126]: |   51 41 2f af  ac 6f 2c 41  5c 2c b1 93  97 10 fb 43
+Jun 15 21:25:12 ester4 pluto[5126]: |   e8 96 f9 7a  c0 c9 50 8a  73 98 8b 3e  7e 3c 1d be
+Jun 15 21:25:12 ester4 pluto[5126]: |   cf 6d 1c 78  68 b6 00 a3  f7 01 8d bc  d1 e7 0e 29
+Jun 15 21:25:12 ester4 pluto[5126]: |   f4 9a 89 48  fe 89 aa fa  d0 09 bd 42  7d 21 48 96
+Jun 15 21:25:12 ester4 pluto[5126]: |   7f 8a a8 19  0b 5a ad ce  aa d5 58 78  cc 9c b5 69
+Jun 15 21:25:12 ester4 pluto[5126]: |   65 3b ab ec  fa 7c ab 80  fc ee 2d 22  96 6c 2b 84
+Jun 15 21:25:12 ester4 pluto[5126]: |   7d 3f 1a 33  a5 56 6c fb  87 76 90 e8  75 4b f4 47
+Jun 15 21:25:12 ester4 pluto[5126]: |   f1 ab 28 71  b6 7a bc bc  be f7 b0 05  eb 66 29 83
+Jun 15 21:25:12 ester4 pluto[5126]: |   f6 06 da 09  88 7b de 74  40 54 a5 66  cb eb af 16
+Jun 15 21:25:12 ester4 pluto[5126]: |   61 2e 24 37  2b 4c 6a b9  e3 e0 ca cb  43 d6 c9 b0
+Jun 15 21:25:12 ester4 pluto[5126]: |   1f 83 93 72  5b 9d 7a d4  03 e3 35 bf  61 b1 61 ae
+Jun 15 21:25:12 ester4 pluto[5126]: |   6f 2f f0 75  82 af a5 89  9c e1 19 53  1e 5f 13 e3
+Jun 15 21:25:12 ester4 pluto[5126]: |   ce 8a b1 1d  49 44 83 80  55 46 e5 cb  ce b9 57 5c
+Jun 15 21:25:12 ester4 pluto[5126]: |   62 4e 4b e0  68 04 1e e5  c6 a2 c6 87  ca 0b 7f f1
+Jun 15 21:25:12 ester4 pluto[5126]: |   91 3e 68 58  bb 39 8a dd  91 9c 30 3a
+Jun 15 21:25:12 ester4 pluto[5126]: | inserting event EVENT_v2_RETRANSMIT, timeout in 40 seconds for #2
+Jun 15 21:25:12 ester4 pluto[5126]: | event added at head of queue
+Jun 15 21:25:12 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 40 seconds for #2
+Jun 15 21:25:12 ester4 pluto[5126]: | 
+
+@@
+7. THE SAME RESPONSE MESSAGE R1 TO I1?
+
+Jun 15 21:25:12 ester4 pluto[5126]: | *received 429 bytes from 192.168.1.5:500 on eth4 (port=500)
+Jun 15 21:25:12 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a  59 df e5 94  cd 09 98 8a
+Jun 15 21:25:12 ester4 pluto[5126]: |   21 20 22 20  00 00 00 00  00 00 01 ad  22 00 00 30
+Jun 15 21:25:12 ester4 pluto[5126]: |   00 00 00 2c  01 01 00 04  03 00 00 0c  01 00 00 0c
+Jun 15 21:25:12 ester4 pluto[5126]: |   80 0e 00 80  03 00 00 08  03 00 00 02  03 00 00 08
+Jun 15 21:25:12 ester4 pluto[5126]: |   02 00 00 02  00 00 00 08  04 00 00 0e  28 00 01 08
+Jun 15 21:25:12 ester4 pluto[5126]: |   00 0e 00 00  9b c9 7a c8  de 92 4d 8b  f2 d0 a7 16
+Jun 15 21:25:12 ester4 pluto[5126]: |   44 9a 9e 4a  07 a8 ea 9f  8e df d7 bb  a4 f8 48 0d
+Jun 15 21:25:12 ester4 pluto[5126]: |   e1 f2 04 f1  f3 57 f5 e0  e9 6c 4d b8  b5 66 31 01
+Jun 15 21:25:12 ester4 pluto[5126]: |   ec 5c 5a e6  41 46 b3 36  6b fb c5 74  3c 90 bd e7
+Jun 15 21:25:12 ester4 pluto[5126]: |   67 53 d8 e3  22 39 b3 92  91 1c eb 40  48 04 04 8e
+Jun 15 21:25:12 ester4 pluto[5126]: |   c4 01 fc 84  46 d8 86 fa  79 c2 d2 ea  f8 6e 13 52
+Jun 15 21:25:12 ester4 pluto[5126]: |   58 35 cf 36  99 82 0f 0c  d5 85 69 1e  cf 08 0e ac
+Jun 15 21:25:12 ester4 pluto[5126]: |   0c ad f6 73  ae 32 5e 5b  8b 75 0c ba  f1 19 77 fa
+Jun 15 21:25:12 ester4 pluto[5126]: |   74 dc 86 8c  5b 39 68 87  1b aa 2c 7c  c3 65 aa b0
+Jun 15 21:25:12 ester4 pluto[5126]: |   f5 a6 7f da  0b 21 6d c1  bc 08 cf b8  6b c2 25 87
+Jun 15 21:25:12 ester4 pluto[5126]: |   54 0f e0 95  cd c1 70 dd  f9 ce 53 29  2f e0 46 3d
+Jun 15 21:25:12 ester4 pluto[5126]: |   48 cb e0 87  5c 66 2b 52  92 5d fd af  66 b0 33 14
+Jun 15 21:25:12 ester4 pluto[5126]: |   19 f2 d3 27  f5 be a5 86  28 b3 ae 69  4d 5e 97 52
+Jun 15 21:25:12 ester4 pluto[5126]: |   ba 87 2f 31  41 23 2b 41  6d cd 86 61  09 0a 37 25
+Jun 15 21:25:12 ester4 pluto[5126]: |   7d 99 59 06  a0 15 c0 ac  f9 30 0a c4  c5 d6 7f 46
+Jun 15 21:25:12 ester4 pluto[5126]: |   e3 9b 63 5c  ee 70 ec 3d  b5 4f f6 15  bc 91 0e 7f
+Jun 15 21:25:12 ester4 pluto[5126]: |   88 4b 36 f8  29 00 00 14  7a 07 a4 fc  4b 7d dd 65
+Jun 15 21:25:12 ester4 pluto[5126]: |   50 07 0d dc  ee a6 d6 e7  29 00 00 08  00 00 40 2e
+Jun 15 21:25:12 ester4 pluto[5126]: |   29 00 00 1c  00 00 40 04  5b 56 28 ae  f4 0f 7d 74
+Jun 15 21:25:12 ester4 pluto[5126]: |   8d 83 3c 1c  d1 39 0b 2f  0d 9b 2a 23  26 00 00 1c
+Jun 15 21:25:12 ester4 pluto[5126]: |   00 00 40 05  69 bf f1 0b  8f 69 8b 8b  8a 22 1b 16
+Jun 15 21:25:12 ester4 pluto[5126]: |   3f 60 3a 29  ba 5f 35 23  00 00 00 05  04
+Jun 15 21:25:12 ester4 pluto[5126]: | **parse ISAKMP Message:
+Jun 15 21:25:12 ester4 pluto[5126]: |    initiator cookie:
+Jun 15 21:25:12 ester4 pluto[5126]: |   02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:25:12 ester4 pluto[5126]: |    responder cookie:
+Jun 15 21:25:12 ester4 pluto[5126]: |   59 df e5 94  cd 09 98 8a
+Jun 15 21:25:12 ester4 pluto[5126]: |    next payload type: ISAKMP_NEXT_v2SA
+Jun 15 21:25:12 ester4 pluto[5126]: |    ISAKMP version: IKEv2 version 2.0 (rfc4306)
+Jun 15 21:25:12 ester4 pluto[5126]: |    exchange type: ISAKMP_v2_SA_INIT
+Jun 15 21:25:12 ester4 pluto[5126]: |    flags: ISAKMP_FLAG_RESPONSE
+Jun 15 21:25:12 ester4 pluto[5126]: |    message ID:  00 00 00 00
+Jun 15 21:25:12 ester4 pluto[5126]: |    length: 429
+Jun 15 21:25:12 ester4 pluto[5126]: |  processing version=2.0 packet with exchange type=ISAKMP_v2_SA_INIT (34)
+Jun 15 21:25:12 ester4 pluto[5126]: | I am receiving an IKE Response
+Jun 15 21:25:12 ester4 pluto[5126]: | I am the IKE SA Original Initiator
+Jun 15 21:25:12 ester4 pluto[5126]: | I am IKE SA Initiator
+Jun 15 21:25:12 ester4 pluto[5126]: | ICOOKIE:  02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:25:12 ester4 pluto[5126]: | RCOOKIE:  59 df e5 94  cd 09 98 8a
+Jun 15 21:25:12 ester4 pluto[5126]: | state hash entry 7
+Jun 15 21:25:12 ester4 pluto[5126]: | v2 peer and cookies match on #1
+Jun 15 21:25:12 ester4 pluto[5126]: | v2 state object #1 found, in STATE_PARENT_I2
+Jun 15 21:25:12 ester4 pluto[5126]: | ended up with STATE_IKEv2_ROOF
+
+@@
+8. GETTING READY TO RETRANSMIT AGAIN?
+
+Jun 15 21:25:12 ester4 pluto[5126]: | * processed 0 messages from cryptographic helpers 
+Jun 15 21:25:12 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 40 seconds for #2
+Jun 15 21:25:12 ester4 pluto[5126]: | next event EVENT_v2_RETRANSMIT in 40 seconds for #2
+
+@@
+10. IPSEC AUTO --UP
+
+# ipsec auto --up home-work-cacert-ikev2
+133 "home-work-cacert-ikev2" #1: STATE_PARENT_I1: initiate
+133 "home-work-cacert-ikev2" #1: STATE_PARENT_I1: sent v2I1, expected v2R1
+134 "home-work-cacert-ikev2" #2: STATE_PARENT_I2: sent v2I2, expected v2R2
+200 "home-work-cacert-ikev2" #2: STATE_PARENT_I2: (null)
+010 "home-work-cacert-ikev2" #2: STATE_PARENT_I2: retransmission; will wait 20s for response
+010 "home-work-cacert-ikev2" #2: STATE_PARENT_I2: retransmission; will wait 40s for response
+ 
+
+@@
+11. TCPDUMP OUTPUT
+
+@@
+12. MESSAGE I1 (ikev2_init[I])
+
+# tcpdump -vnn -i eth4 -p esp or udp port 500 or icmp
+tcpdump: listening on eth4, link-type EN10MB (Ethernet), capture size 65535 bytes
+21:24:42.047752 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 864)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[I]:
+    (sa: len=504
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #2 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #3 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #4 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #5 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #6 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #7 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #8 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #9 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #10 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #11 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #12 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(61742b753c4d61c2fa9a...bff1d100000000104f4568794c64414365636661))
+    (v2vid: len=12 vid=OEhyLdACecfa)
+
+@@
+12. MESSAGE R1: parent_sa ikev2_init[R]
+
+21:24:42.267370 IP (tos 0x0, ttl 64, id 39520, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+
+@@
+13. MESSAGE I2: child_sa  ikev2_auth[I]
+
+21:24:42.285697 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+
+@@
+14. MESSAGE R2: child_sa  ikev2_auth[R]
+
+21:24:42.740705 IP (tos 0x0, ttl 64, id 39845, offset 0, flags [DF], proto UDP (17), length 1256)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[R]:
+    (v2e: len=1196)
+
+@@
+15. MESSAGE I2: child_sa  ikev2_auth[I]
+
+21:24:52.786765 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+
+@@
+16. MESSAGE R1: 
+
+21:24:52.797227 IP (tos 0x0, ttl 64, id 41697, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:25:12.283528 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:25:12.314740 IP (tos 0x0, ttl 64, id 54061, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:25:52.333725 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:25:52.368393 IP (tos 0x0, ttl 64, id 64716, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:26:32.138463 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:26:32.167384 IP (tos 0x0, ttl 64, id 10918, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:27:12.228277 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:27:12.263389 IP (tos 0x0, ttl 64, id 21480, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:27:52.306509 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:27:52.341283 IP (tos 0x0, ttl 64, id 33955, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:28:32.410522 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:28:32.442120 IP (tos 0x0, ttl 64, id 53505, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:29:12.501394 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:29:12.535225 IP (tos 0x0, ttl 64, id 9995, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:29:52.592393 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:29:52.626244 IP (tos 0x0, ttl 64, id 10687, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:30:32.683376 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:30:32.715961 IP (tos 0x0, ttl 64, id 20725, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:31:12.774631 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:31:12.809693 IP (tos 0x0, ttl 64, id 25487, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:31:52.855440 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:31:52.885188 IP (tos 0x0, ttl 64, id 29256, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:32:32.942901 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:32:32.977488 IP (tos 0x0, ttl 64, id 58641, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:33:12.026316 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:33:12.063018 IP (tos 0x0, ttl 64, id 1078, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:33:52.089046 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:33:52.122024 IP (tos 0x0, ttl 64, id 10287, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:34:32.181637 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:34:32.214430 IP (tos 0x0, ttl 64, id 12648, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:35:12.272579 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:35:12.308240 IP (tos 0x0, ttl 64, id 45122, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:35:52.316166 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:35:52.344604 IP (tos 0x0, ttl 64, id 1492, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:36:32.392129 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:36:32.425456 IP (tos 0x0, ttl 64, id 4867, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:37:12.482963 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:37:12.513918 IP (tos 0x0, ttl 64, id 7717, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:38:32.157170 IP (tos 0x0, ttl 64, id 38424, offset 0, flags [DF], proto UDP (17), length 104)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa inf2:
+    (v2e: len=44)
+21:38:32.198586 IP (tos 0x0, ttl 64, id 38429, offset 0, flags [DF], proto UDP (17), length 104)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000001: child_sa  inf2:
+    (v2e: len=44)
+^C
+

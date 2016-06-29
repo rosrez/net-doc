@@ -1,0 +1,152 @@
+@@
+1. TRAFFIC SELECTORS
+
+Jun 15 11:09:13 localhost pluto[4122]: | emitting length of IKEv2 Authentication Payload: 136
+Jun 15 11:09:13 localhost pluto[4122]: | ***parse IKEv2 Traffic Selector:
+Jun 15 11:09:13 localhost pluto[4122]: |    TS type: IKEv2_TS_IPV4_ADDR_RANGE (0x7)
+Jun 15 11:09:13 localhost pluto[4122]: |    IP Protocol ID: 0 (0x0)
+Jun 15 11:09:13 localhost pluto[4122]: |    length: 16 (0x10)
+Jun 15 11:09:13 localhost pluto[4122]: |    start port: 0 (0x0)
+Jun 15 11:09:13 localhost pluto[4122]: |    end port: 65535 (0xffff)
+Jun 15 11:09:13 localhost pluto[4122]: | parsing 4 raw bytes of IKEv2 Traffic Selector into ipv4 ts
+Jun 15 11:09:13 localhost pluto[4122]: | ipv4 ts  c0 a8 01 e2
+Jun 15 11:09:13 localhost pluto[4122]: | parsing 4 raw bytes of IKEv2 Traffic Selector into ipv4 ts
+Jun 15 11:09:13 localhost pluto[4122]: | ipv4 ts  c0 a8 01 e2
+Jun 15 11:09:13 localhost pluto[4122]: | ***parse IKEv2 Traffic Selector:
+Jun 15 11:09:13 localhost pluto[4122]: |    TS type: IKEv2_TS_IPV4_ADDR_RANGE (0x7)
+Jun 15 11:09:13 localhost pluto[4122]: |    IP Protocol ID: 0 (0x0)
+Jun 15 11:09:13 localhost pluto[4122]: |    length: 16 (0x10)
+Jun 15 11:09:13 localhost pluto[4122]: |    start port: 0 (0x0)
+Jun 15 11:09:13 localhost pluto[4122]: |    end port: 65535 (0xffff)
+Jun 15 11:09:13 localhost pluto[4122]: | parsing 4 raw bytes of IKEv2 Traffic Selector into ipv4 ts
+Jun 15 11:09:13 localhost pluto[4122]: | ipv4 ts  c0 a8 01 05
+Jun 15 11:09:13 localhost pluto[4122]: | parsing 4 raw bytes of IKEv2 Traffic Selector into ipv4 ts
+Jun 15 11:09:13 localhost pluto[4122]: | ipv4 ts  c0 a8 01 05
+
+@@
+2. EVALUATING CONNECTIONS - PHASE "C": FAILS BECAUSE I=0.0.0.0/32 IS NOT PART OF 192.168.1.226
+
+Jun 15 11:09:13 localhost pluto[4122]: |   ikev2_evaluate_connection_fit evaluating our conn="home-work-cacert" I=0.0.0.0/32:0/0 R=192.168.1.5/32:0/0 (virt) to their:
+Jun 15 11:09:13 localhost pluto[4122]: |     tsi[0]=192.168.1.226/192.168.1.226 proto=0 portrange 0-65535, tsr[0]=192.168.1.5/192.168.1.5 proto=0 portrange 0-65535
+Jun 15 11:09:13 localhost pluto[4122]: | prefix fitness rejected c home-work-cacert c->name
+
+@@
+3. FINDING HOST PAIRS (THE GENERIC ONE WITH 0.0.0.0 AS THE RIGHT IP IS RETURNED)
+
+Jun 15 11:09:13 localhost pluto[4122]: | find_host_pair: comparing 192.168.1.5:500 to 0.0.0.0:500
+Jun 15 11:09:13 localhost pluto[4122]: | find_host_pair: comparing 192.168.1.5:500 to 192.168.1.226:500
+Jun 15 11:09:13 localhost pluto[4122]: |   checking hostpair 192.168.1.5/32 -> 0.0.0.0/32 is found
+Jun 15 11:09:13 localhost pluto[4122]: |    match_id a=C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work
+Jun 15 11:09:13 localhost pluto[4122]: |             b=C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work
+Jun 15 11:09:13 localhost pluto[4122]: |    results  matched
+Jun 15 11:09:13 localhost pluto[4122]: | trusted_ca_nss: trustee A = '(empty)'
+Jun 15 11:09:13 localhost pluto[4122]: | trusted_ca_nss: trustor B = '(empty)'
+
+@@
+4. EVALUATING CONNECTIONS - PHASE "D": FAILS BECAUSE I=0.0.0.0/32 IS NOT PART OF 192.168.1.226
+
+Jun 15 11:09:13 localhost pluto[4122]: |   ikev2_evaluate_connection_fit evaluating our conn="home-work-cacert" I=0.0.0.0/32:0/0 R=192.168.1.5/32:0/0 (virt) to their:
+Jun 15 11:09:13 localhost pluto[4122]: |     tsi[0]=192.168.1.226/192.168.1.226 proto=0 portrange 0-65535, tsr[0]=192.168.1.5/192.168.1.5 proto=0 portrange 0-65535
+Jun 15 11:09:13 localhost pluto[4122]: | prefix fitness rejected d home-work-cacert
+
+@@
+5. THE CONNECTION SELECTION PROCESS ULTIMATELY FAILS
+
+Jun 15 11:09:13 localhost pluto[4122]: | ikev2_child_sa_respond returned STF_FAIL with v2N_NO_PROPOSAL_CHOSEN
+Jun 15 11:09:13 localhost pluto[4122]: | ikev2_parent_inI2outR2_tail returned STF_FAIL with v2N_NO_PROPOSAL_CHOSEN
+Jun 15 11:09:13 localhost pluto[4122]: | #1 complete v2 state transition from STATE_PARENT_R2 with v2N_NO_PROPOSAL_CHOSEN
+Jun 15 11:09:13 localhost pluto[4122]: | sending a notification reply
+Jun 15 11:09:13 localhost pluto[4122]: "home-work-cacert"[1] 192.168.1.226 #1: sending unencrypted notification v2N_NO_PROPOSAL_CHOSEN to 192.168.1.226:500
+
+@@
+6. TCPDUMP OUTPUT
+
+# tcpdump -i enp2s0 -vnn -p esp or udp port 500
+tcpdump: listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+11:09:12.528373 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 864)
+    192.168.1.226.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[I]:
+    (sa: len=504
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #2 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #3 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #4 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #5 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #6 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #7 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #8 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #9 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #10 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #11 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #12 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(32745cc9e2ac96309e0a...f97bfd90000000104f4568794c64414365636661))
+    (v2vid: len=12 vid=OEhyLdACecfa)
+11:09:12.792748 IP (tos 0x0, ttl 64, id 12468, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.226.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(8be58103a7275e514dc7...d64109b401ce3749cff1d65d9852790000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+11:09:12.826540 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.226.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+11:09:13.184853 IP (tos 0x0, ttl 64, id 12484, offset 0, flags [DF], proto UDP (17), length 64)
+    192.168.1.5.500 > 192.168.1.226.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_auth[R]:
+    (n: prot_id=#0 type=14(no_protocol_chosen))
+

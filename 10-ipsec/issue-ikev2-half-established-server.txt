@@ -1,0 +1,368 @@
+@@
+0. SERVER LOG
+
+@@
+1. AUTHENTICATION
+
+Jun 15 21:24:44 localhost pluto[8481]: | emitting length of IKEv2 Certificate Payload: 796
+Jun 15 21:24:44 localhost pluto[8481]: | CHILD SA proposals received
+Jun 15 21:24:44 localhost pluto[8481]: | going to assemble AUTH payload
+Jun 15 21:24:44 localhost pluto[8481]: | *****emit IKEv2 Authentication Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    next payload type: ISAKMP_NEXT_v2SA (0x21)
+Jun 15 21:24:44 localhost pluto[8481]: |    flags: none (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: |    auth method: IKEv2_AUTH_RSA (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: | started looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work of kind PPK_RSA
+Jun 15 21:24:44 localhost pluto[8481]: | searching for certificate PPK_RSA:AwEAAb/I4 vs PPK_RSA:AwEAAb/I4
+Jun 15 21:24:44 localhost pluto[8481]: | k did match
+Jun 15 21:24:44 localhost pluto[8481]: | n did match
+Jun 15 21:24:44 localhost pluto[8481]: | e did match
+Jun 15 21:24:44 localhost pluto[8481]: | inputs to hash1 (first packet)
+Jun 15 21:24:44 localhost pluto[8481]: |   02 a5 8f 81  2a 82 4b 3a  59 df e5 94  cd 09 98 8a
+...
+
+Jun 15 21:24:44 localhost pluto[8481]: | emitting 128 raw bytes of rsa signature into IKEv2 Authentication Payload
+Jun 15 21:24:44 localhost pluto[8481]: | rsa signature  31 de d4 da  14 bf a3 31  a1 81 43 5d  7a e3 9e 94
+
+Jun 15 21:24:44 localhost pluto[8481]: | emitting length of IKEv2 Authentication Payload: 136
+
+@@
+2. REQUESTING LEASE FROM ADDRESS POOL
+
+Jun 15 21:24:44 localhost pluto[8481]: | request lease from addresspool 192.168.1.100-192.168.1.254 reference count 4 thatid 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work' that.client.addr 192.168.1.238
+Jun 15 21:24:44 localhost pluto[8481]: | in share_lease: no lingering addresspool lease for 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work'
+Jun 15 21:24:44 localhost pluto[8481]: | New lease from addresspool index 0
+Jun 15 21:24:44 localhost pluto[8481]: | new lease 192.168.1.100 from addresspool 192.168.1.100-192.168.1.254 to that.client.addr 192.168.1.238 thatid 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work'
+Jun 15 21:24:44 localhost pluto[8481]: | creating state object #2 at 0x559b8579cdf0
+Jun 15 21:24:44 localhost pluto[8481]: | parent state #2: new > STATE_UNDEFINED(ignore)
+
+@@
+3. CREATING CHILD SA?
+
+Jun 15 21:24:44 localhost pluto[8481]: | duplicating state object #1 as #2
+Jun 15 21:24:44 localhost pluto[8481]: | inserting state object #2
+Jun 15 21:24:44 localhost pluto[8481]: | finding hash chain in state hash table
+Jun 15 21:24:44 localhost pluto[8481]: |   ICOOKIE:  02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:44 localhost pluto[8481]: |   RCOOKIE:  59 df e5 94  cd 09 98 8a
+Jun 15 21:24:44 localhost pluto[8481]: | found hash chain 7
+Jun 15 21:24:44 localhost pluto[8481]: | list 0x559b84e94280 first entry 0x559b8578ecc0
+Jun 15 21:24:44 localhost pluto[8481]: | inserted state 0x559b8579cdf0 entry 0x559b8579d460 next 0x559b8578ecc0 prev-next 0x559b84e94280 into list
+Jun 15 21:24:44 localhost pluto[8481]: | updated next state 0x559b8578e650 entry 0x559b8578ecc0 next (nil) prev-next 0x559b8579d460
+Jun 15 21:24:44 localhost pluto[8481]: | finding hash chain in icookie hash table
+Jun 15 21:24:44 localhost pluto[8481]: |   ICOOKIE:  02 a5 8f 81  2a 82 4b 3a
+Jun 15 21:24:44 localhost pluto[8481]: |   RCOOKIE:  00 00 00 00  00 00 00 00
+Jun 15 21:24:44 localhost pluto[8481]: | found hash chain 28
+Jun 15 21:24:44 localhost pluto[8481]: | list 0x559b84e94448 first entry 0x559b8578ecd8
+Jun 15 21:24:44 localhost pluto[8481]: | inserted state 0x559b8579cdf0 entry 0x559b8579d478 next 0x559b8578ecd8 prev-next 0x559b84e94448 into list
+Jun 15 21:24:44 localhost pluto[8481]: | updated next state 0x559b8578e650 entry 0x559b8578ecd8 next (nil) prev-next 0x559b8579d478
+Jun 15 21:24:44 localhost pluto[8481]: | event_schedule called for 0 seconds
+Jun 15 21:24:44 localhost pluto[8481]: | event_schedule_tv called for about 0 seconds and change
+Jun 15 21:24:44 localhost pluto[8481]: | inserting event EVENT_SO_DISCARD, timeout in 0.000000 seconds for #2
+Jun 15 21:24:44 localhost pluto[8481]: | *****emit IKEv2 Security Association Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    next payload type: ISAKMP_NEXT_v2TSi (0x2c)
+Jun 15 21:24:44 localhost pluto[8481]: |    flags: none (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: | entered ikev2_parse_child_sa_body()
+Jun 15 21:24:44 localhost pluto[8481]: | empty esp_info, returning defaults
+Jun 15 21:24:44 localhost pluto[8481]: | ***parse IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last proposal: v2_PROPOSAL_NON_LAST (0x2)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 40 (0x28)
+Jun 15 21:24:44 localhost pluto[8481]: |    prop #: 1 (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: |    proto ID: IKEv2_SEC_PROTO_ESP (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    spi size: 4 (0x4)
+Jun 15 21:24:44 localhost pluto[8481]: |    # transforms: 3 (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: | parsing 4 raw bytes of IKEv2 Proposal Substructure Payload into CHILD SA SPI
+Jun 15 21:24:44 localhost pluto[8481]: | CHILD SA SPI  35 04 10 cc
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 12 (0xc)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_ENCR (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: AES_CBC (0xc)
+Jun 15 21:24:44 localhost pluto[8481]: | *****parse IKEv2 Attribute Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    af+type: IKEv2_KEY_LENGTH (0x800e)
+Jun 15 21:24:44 localhost pluto[8481]: |    length/value: 128 (0x80)
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_INTEG (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: AUTH_HMAC_SHA1_96 (0x2)
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_LAST (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_ESN (0x5)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: ESN_DISABLED (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: | Starting at transform type TRANS_TYPE_ENCR
+Jun 15 21:24:44 localhost pluto[8481]: | failed proposal 1
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded encr= (policy:AES_CBC(128) vs offered:AES_CBC(128))
+Jun 15 21:24:44 localhost pluto[8481]: |             failed integ=(policy:AUTH_NONE(0) vs offered:AUTH_HMAC_SHA1_96(-1))
+Jun 15 21:24:44 localhost pluto[8481]: |             failed esn=  (policy:ESN_DISABLED vs offered:ESN_DISABLED)
+Jun 15 21:24:44 localhost pluto[8481]: | Starting at transform type TRANS_TYPE_INTEG
+Jun 15 21:24:44 localhost pluto[8481]: | failed proposal 1
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded encr= (policy:AES_CBC(128) vs offered:AES_CBC(128))
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded integ=(policy:AUTH_HMAC_SHA1_96(-1) vs offered:AUTH_HMAC_SHA1_96(-1))
+Jun 15 21:24:44 localhost pluto[8481]: |             failed esn=  (policy:ESN_DISABLED vs offered:ESN_DISABLED)
+Jun 15 21:24:44 localhost pluto[8481]: | Starting at transform type TRANS_TYPE_ESN
+Jun 15 21:24:44 localhost pluto[8481]: | matched proposal 1
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded encr= (policy:AES_CBC(128) vs offered:AES_CBC(128))
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded integ=(policy:AUTH_HMAC_SHA1_96(-1) vs offered:AUTH_HMAC_SHA1_96(-1))
+Jun 15 21:24:44 localhost pluto[8481]: |             succeeded esn=  (policy:ESN_DISABLED vs offered:ESN_DISABLED)
+Jun 15 21:24:44 localhost pluto[8481]: | ***parse IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last proposal: v2_PROPOSAL_NON_LAST (0x2)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 40 (0x28)
+Jun 15 21:24:44 localhost pluto[8481]: |    prop #: 2 (0x2)
+Jun 15 21:24:44 localhost pluto[8481]: |    proto ID: IKEv2_SEC_PROTO_ESP (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    spi size: 4 (0x4)
+Jun 15 21:24:44 localhost pluto[8481]: |    # transforms: 3 (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: | parsing 4 raw bytes of IKEv2 Proposal Substructure Payload into CHILD SA SPI
+Jun 15 21:24:44 localhost pluto[8481]: | CHILD SA SPI  35 04 10 cc
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 12 (0xc)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_ENCR (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: AES_CBC (0xc)
+Jun 15 21:24:44 localhost pluto[8481]: | *****parse IKEv2 Attribute Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    af+type: IKEv2_KEY_LENGTH (0x800e)
+Jun 15 21:24:44 localhost pluto[8481]: |    length/value: 128 (0x80)
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_INTEG (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: AUTH_HMAC_MD5_96 (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_LAST (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_ESN (0x5)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: ESN_DISABLED (0x0)
+Jun 15 21:24:44 localhost pluto[8481]: | ***parse IKEv2 Proposal Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last proposal: v2_PROPOSAL_NON_LAST (0x2)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 36 (0x24)
+Jun 15 21:24:44 localhost pluto[8481]: |    prop #: 3 (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    proto ID: IKEv2_SEC_PROTO_ESP (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    spi size: 4 (0x4)
+Jun 15 21:24:44 localhost pluto[8481]: |    # transforms: 3 (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: | parsing 4 raw bytes of IKEv2 Proposal Substructure Payload into CHILD SA SPI
+Jun 15 21:24:44 localhost pluto[8481]: | CHILD SA SPI  35 04 10 cc
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_ENCR (0x1)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform ID: 3DES (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: | ****parse IKEv2 Transform Substructure Payload:
+Jun 15 21:24:44 localhost pluto[8481]: |    last transform: v2_TRANSFORM_NON_LAST (0x3)
+Jun 15 21:24:44 localhost pluto[8481]: |    length: 8 (0x8)
+Jun 15 21:24:44 localhost pluto[8481]: |    IKEv2 transform type: TRANS_TYPE_INTEG (0x3)
+
+@@
+4. TUNNEL ESTABLISHED
+
+Jun 15 21:24:45 localhost pluto[8481]: "home-work-cacert-ikev2"[1] 192.168.1.238 #2: negotiated connection [0.0.0.0,255.255.255.255:0-65535 0] -> [192.168.1.100,192.168.1.100:0-65535 0]
+Jun 15 21:24:45 localhost pluto[8481]: "home-work-cacert-ikev2"[1] 192.168.1.238 #2: STATE_PARENT_R2: received v2I2, PARENT SA established tunnel mode {ESP=>0x350410cc <0x3aa3f82d xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=none DPD=passive}
+
+@@
+5. IPSEC STATUS OUTPUT
+
+000 "home-work-cacert-ikev2": 0.0.0.0/0===192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]...%any[%fromcert]; unrouted; eroute owner: #0
+000 "home-work-cacert-ikev2":     oriented; my_ip=unset; their_ip=unset; mycert=home
+000 "home-work-cacert-ikev2":   xauth info: us:none, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "home-work-cacert-ikev2":   modecfg info: us:none, them:none, modecfg policy:push, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "home-work-cacert-ikev2":   labeled_ipsec:no;
+000 "home-work-cacert-ikev2":   policy_label:unset;
+000 "home-work-cacert-ikev2":   CAs: 'C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com'...'%any'
+000 "home-work-cacert-ikev2":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "home-work-cacert-ikev2":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "home-work-cacert-ikev2":   sha2_truncbug:no; initial_contact:no; cisco_unity:no; fake_strongswan:no; send_vendorid:no;
+000 "home-work-cacert-ikev2":   policy: RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "home-work-cacert-ikev2":   conn_prio: 0,32; interface: enp2s0; metric: 0; mtu: unset; sa_prio:auto; nflog-group: unset; mark: unset;
+000 "home-work-cacert-ikev2":   dpd: action:hold; delay:0; timeout:0; nat-t: force_encaps:no; nat_keepalive:yes; ikev1_natt:both
+000 "home-work-cacert-ikev2":   newest ISAKMP SA: #0; newest IPsec SA: #0;
+000 "home-work-cacert-ikev2"[1]: 0.0.0.0/0===192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]...192.168.1.238[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work]===192.168.1.100/32; erouted; eroute owner: #2
+000 "home-work-cacert-ikev2"[1]:     oriented; my_ip=unset; their_ip=unset; mycert=home
+000 "home-work-cacert-ikev2"[1]:   xauth info: us:none, them:none,  my_xauthuser=[any]; their_xauthuser=[any]
+000 "home-work-cacert-ikev2"[1]:   modecfg info: us:none, them:none, modecfg policy:push, dns1:unset, dns2:unset, domain:unset, banner:unset;
+000 "home-work-cacert-ikev2"[1]:   labeled_ipsec:no;
+000 "home-work-cacert-ikev2"[1]:   policy_label:unset;
+000 "home-work-cacert-ikev2"[1]:   CAs: 'C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com'...'%any'
+000 "home-work-cacert-ikev2"[1]:   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "home-work-cacert-ikev2"[1]:   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "home-work-cacert-ikev2"[1]:   sha2_truncbug:no; initial_contact:no; cisco_unity:no; fake_strongswan:no; send_vendorid:no;
+000 "home-work-cacert-ikev2"[1]:   policy: RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW;
+000 "home-work-cacert-ikev2"[1]:   conn_prio: 0,32; interface: enp2s0; metric: 0; mtu: unset; sa_prio:auto; nflog-group: unset; mark: unset;
+000 "home-work-cacert-ikev2"[1]:   dpd: action:hold; delay:0; timeout:0; nat-t: force_encaps:no; nat_keepalive:yes; ikev1_natt:both
+000 "home-work-cacert-ikev2"[1]:   newest ISAKMP SA: #1; newest IPsec SA: #2;
+000 "home-work-cacert-ikev2"[1]:   IKEv2 algorithm newest: AES_CBC_128-AUTH_HMAC_SHA1_96-PRF_HMAC_SHA1-MODP2048
+000 "home-work-cacert-ikev2"[1]:   ESP algorithm newest: AES_128-HMAC_SHA1; pfsgroup=<Phase1>
+
+
+
+000 Total IPsec connections: loaded 5, active 1
+000  
+000 State Information: DDoS cookies not required, Accepting new IKE connections
+000 IKE SAs: total(1), half-open(0), open(0), authenticated(1), anonymous(0)
+000 IPsec SAs: total(1), authenticated(1), anonymous(0)
+000  
+000 #2: "home-work-cacert-ikev2"[1] 192.168.1.238:500 STATE_PARENT_R2 (received v2I2, PARENT SA established); EVENT_SA_REPLACE in 28467s; newest IPSEC; eroute owner; isakmp#1; idle; import:respond to stranger
+000 #2: "home-work-cacert-ikev2"[1] 192.168.1.238 esp.350410cc@192.168.1.238 esp.3aa3f82d@192.168.1.5 tun.0@192.168.1.238 tun.0@192.168.1.5 ref=0 refhim=4294901761 Traffic: ESPin=0B ESPout=0B! ESPmax=0B 
+000 #1: "home-work-cacert-ikev2"[1] 192.168.1.238:500 STATE_PARENT_R2 (received v2I2, PARENT SA established); EVENT_SA_REPLACE in 3266s; newest ISAKMP; isakmp#0; idle; import:respond to stranger
+000 #1: "home-work-cacert-ikev2"[1] 192.168.1.238 ref=0 refhim=0 Traffic: 
+
+
+@@
+6. TCPDUMP OUTPUT
+ enp2s0 -vnn -p esp or udp port 500 or icmp
+tcpdump: listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+21:24:44.329667 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 864)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[I]:
+    (sa: len=504
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #2 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #3 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #4 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp2048 ))
+        (p: #5 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #6 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #7 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #8 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1536 ))
+        (p: #9 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #10 protoid=isakmp transform=4 len=40
+            (t: #1 type=encr id=3des )
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #11 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp1024 ))
+        (p: #12 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-md5 )
+            (t: #3 type=prf id=hmac-md5 )
+            (t: #4 type=dh id=modp1024 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(61742b753c4d61c2fa9a...bff1d100000000104f4568794c64414365636661))
+    (v2vid: len=12 vid=OEhyLdACecfa)
+21:24:44.547722 IP (tos 0x0, ttl 64, id 39520, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:24:44.567560 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:24:45.020908 IP (tos 0x0, ttl 64, id 39845, offset 0, flags [DF], proto UDP (17), length 1256)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[R]:
+    (v2e: len=1196)
+21:24:55.069480 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:24:55.077822 IP (tos 0x0, ttl 64, id 41697, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:25:14.567214 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:25:14.596543 IP (tos 0x0, ttl 64, id 54061, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:25:54.619549 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:25:54.652058 IP (tos 0x0, ttl 64, id 64716, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+21:26:34.426371 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 1288)
+    192.168.1.238.500 > 192.168.1.5.500: isakmp 2.0 msgid 00000001: child_sa  ikev2_auth[I]:
+    (v2e: len=1228)
+21:26:34.453556 IP (tos 0x0, ttl 64, id 10918, offset 0, flags [DF], proto UDP (17), length 457)
+    192.168.1.5.500 > 192.168.1.238.500: isakmp 2.0 msgid 00000000: parent_sa ikev2_init[R]:
+    (sa: len=44
+        (p: #1 protoid=isakmp transform=4 len=44
+            (t: #1 type=encr id=aes (type=keylen value=0080))
+            (t: #2 type=integ id=hmac-sha )
+            (t: #3 type=prf id=hmac-sha )
+            (t: #4 type=dh id=modp2048 )))
+    (v2ke: len=256 group=modp2048)
+    (nonce: len=16 data=(7a07a4fc4b7ddd655007...698b8b8a221b163f603a29ba5f35230000000504))
+    (n: prot_id=#0 type=16430(status))
+    (n: prot_id=#0 type=16388(nat_detection_source_ip))
+    (n: prot_id=#0 type=16389(nat_detection_destination_ip))
+    (v2cr: len=1)
+
+Jun 15 11:09:13 localhost pluto[4122]: |     tsi[0]=192.168.1.226/192.168.1.226 proto=0 portrange 0-65535, tsr[0]=192.168.1.5/192.168.1.5 proto=0 portrange 0-65535
+
+

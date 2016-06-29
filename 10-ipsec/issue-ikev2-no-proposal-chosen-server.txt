@@ -1,0 +1,39 @@
+Libreswan - server: ATTEMPT #1
+
+Jun 14 19:24:49 localhost pluto[4953]: "home-work-cacert"[1] 192.168.1.222 #1: STATE_PARENT_R1: received v2I1, sent v2R1 {auth=IKEv2 cipher=aes_128 integ=sha1_96 prf=sha group=MODP2048}
+Jun 14 19:24:49 localhost pluto[4953]: "home-work-cacert"[1] 192.168.1.222 #1: certificate CN=Work,OU=Software,O=MyCorp CA,ST=Rhode Island,C=US OK
+Jun 14 19:24:49 localhost pluto[4953]: "home-work-cacert"[1] 192.168.1.222 #1: IKEv2 mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work'
+Jun 14 19:24:49 localhost pluto[4953]: | ikev2_parent_inI2outR2_tail returned STF_FAIL with v2N_NO_PROPOSAL_CHOSEN
+Jun 14 19:24:49 localhost pluto[4953]: "home-work-cacert"[1] 192.168.1.222 #1: sending unencrypted notification v2N_NO_PROPOSAL_CHOSEN to 192.168.1.222:500
+Jun 14 19:24:59 localhost pluto[4953]: "home-work-cacert"[1] 192.168.1.222 #1: sending unencrypted notification v2N_INVALID_MESSAGE_ID to 192.168.1.222:500
+
+-------------------------------
+
+LIBRESWAN - server: ATTEMPT #2
+
+Jun 14 21:17:30 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: STATE_PARENT_R1: received v2I1, sent v2R1 {auth=IKEv2 cipher=aes_128 integ=sha1_96 prf=sha group=MODP2048}
+Jun 14 21:17:30 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: certificate CN=Work,OU=Software,O=MyCorp CA,ST=Rhode Island,C=US OK
+Jun 14 21:17:30 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: IKEv2 mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=Work'
+Jun 14 21:17:30 localhost pluto[2859]: | ikev2_parent_inI2outR2_tail returned STF_FAIL with v2N_NO_PROPOSAL_CHOSEN
+Jun 14 21:17:30 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: sending unencrypted notification v2N_NO_PROPOSAL_CHOSEN to 192.168.1.223:500
+Jun 14 21:17:40 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: sending unencrypted notification v2N_INVALID_MESSAGE_ID to 192.168.1.223:500
+Jun 14 21:18:00 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: sending unencrypted notification v2N_INVALID_MESSAGE_ID to 192.168.1.223:500
+Jun 14 21:20:50 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: ISAKMP Responder timeout (LATEST!)
+Jun 14 21:20:50 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223 #2: deleting state #2 (STATE_PARENT_R2)
+Jun 14 21:20:50 localhost pluto[2859]: "home-work-cacert"[2] 192.168.1.223: deleting connection "home-work-cacert" instance with peer 192.168.1.223 {isakmp=#0/ipsec=#0}
+
+
+# tcpdump -nn -i enp2s0 -p esp or icmp or udp port 500
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+21:17:30.229796 IP 192.168.1.223.500 > 192.168.1.5.500: isakmp: parent_sa ikev2_init[I]
+21:17:30.233825 IP 192.168.1.5.500 > 192.168.1.223.500: isakmp: parent_sa ikev2_init[R]
+21:17:30.247493 IP 192.168.1.223.500 > 192.168.1.5.500: isakmp: child_sa  ikev2_auth[I]
+21:17:30.266381 IP 192.168.1.5.500 > 192.168.1.223.500: isakmp: parent_sa ikev2_auth[R]
+21:17:40.289811 IP 192.168.1.223.500 > 192.168.1.5.500: isakmp: child_sa  ikev2_auth[I]
+21:17:40.290027 IP 192.168.1.5.500 > 192.168.1.223.500: isakmp: parent_sa ikev2_auth[R]
+21:18:00.468961 IP 192.168.1.223.500 > 192.168.1.5.500: isakmp: child_sa  ikev2_auth[I]
+21:18:00.469154 IP 192.168.1.5.500 > 192.168.1.223.500: isakmp: parent_sa ikev2_auth[R]
+21:20:50.265443 IP 192.168.1.5.500 > 192.168.1.223.500: isakmp: parent_sa inf2
+
+

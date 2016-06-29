@@ -16,3 +16,11 @@ https://tools.ietf.org/pdf/draft-dukes-ike-mode-cfg-02.pdf
 
 IKEV2 RFC - current
 https://tools.ietf.org/pdf/rfc7296.pdf
+
+@@
+4. rightsubnet INCOMPATIBLE WITH rightaddresspool
+
+# ipsec start
+while loading 'home-work-cacert-ikev2': cannot specify both rightsubnet= and rightaddresspool=cannot specify both rightsubnet= and rightaddresspool=
+while loading 'home-work-cacert-ikev2': cannot specify both rightsubnet= and rightaddresspool=cannot specify both rightsubnet= and rightaddresspool=
+
