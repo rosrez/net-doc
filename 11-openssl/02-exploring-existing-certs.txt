@@ -1,0 +1,178 @@
+@@
+0. THE FOLLOWING IS A GUIDELINE ON DOWNLOADING WEBSITE CERTIFICATES AND EXPLORING THEM
+
+
+@@
+1. SETUP/CHECK ENVIRONMENT FOR OPENSSL TOOL
+
+$ CDIR=$(openssl version -d | awk '{print $2}' | sed 's/"//g')
+$ echo $CDIR
+/etc/pki/tls
+
+8sjwnLH57Y66e8T9bxVWR0cjBJO6G/LZadWE=
+-----END CERTIFICATE-----
+@
+1. DOWNLOAD SERVER CERTIFICATE
+
+
+$ openssl s_client -CApath /etc/pki/tls -connect www.digicert.com:443 > digicert.out 2>&1
+
+s_client:   client mode
+-CApath:    path to known (root) CA certificates
+-connect:   address to connect to
+
+And then we just capture openssl's stdout/stderr to a file.
+
+@@
+2. EXPLORE RAW OUTPUT FROM OPENSSL
+
+$ cat digicert.out
+depth=2 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert High Assurance EV Root CA
+verify return:1
+depth=1 C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert SHA2 Extended Validation Server CA
+verify return:1
+depth=0 businessCategory = Private Organization, jurisdictionC = US, jurisdictionST = Utah, serialNumber = 5299537-0142, street = Suite 500, street = 2600 West Executive Parkway, postalCode = 84043, C = US, ST = Utah, L = Lehi, O = "DigiCert, Inc.", CN = www.digicert.com
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:/businessCategory=Private Organization/jurisdictionC=US/jurisdictionST=Utah/serialNumber=5299537-0142/street=Suite 500/street=2600 West Executive Parkway/postalCode=84043/C=US/ST=Utah/L=Lehi/O=DigiCert, Inc./CN=www.digicert.com
+   i:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+ 1 s:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+   i:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert High Assurance EV Root CA
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIII9TCCB92gAwIBAgIQB5PsiVldumBtH9n3vjiYAjANBgkqhkiG9w0BAQsFADB1
+...
+MYTd5frlLpj1kU5+Hvs8sjwnLH57Y66e8T9bxVWR0cjBJO6G/LZadWE=
+-----END CERTIFICATE-----
+subject=/businessCategory=Private Organization/jurisdictionC=US/jurisdictionST=Utah/serialNumber=5299537-0142/street=Suite 500/street=2600 West Executive Parkway/postalCode=84043/C=US/ST=Utah/L=Lehi/O=DigiCert, Inc./CN=www.digicert.com
+issuer=/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA512
+Server Temp Key: ECDH, P-256, 256 bits
+---
+SSL handshake has read 4441 bytes and written 327 bytes
+---
+New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Server public key is 4096 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: 1B25059DA3FCE403A185F978DA5742C9DB0EBE5157CA4F88160F3F8B1D001594
+    Session-ID-ctx: 
+    Master-Key: 3096B011F082EB91A1A00C15FA8AA9DF2DEEE54837F4B617DA0052E870555A368111BAB5697C6352D006D0CD68250F9A
+.....
+    Start Time: 1467196196
+    Timeout   : 300 (sec)
+    Verify return code: 0 (ok)          <------- VERIFICATION PASSED
+---
+closed
+
+@@
+3. EXTRACTING .pem A CERTIFICATE FROM RAW OUTPUT
+
+$ openssl x509 -in digicert.out -out digicert.pem
+
+@@
+4. VIEWING .pem CERTIFICATE DATA IN A TEXT FORM
+
+$ openssl x509 -in digicert.pem -text > digicert.txt
+
+$ cat digicert.txt 
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            07:93:ec:89:59:5d:ba:60:6d:1f:d9:f7:be:38:98:02
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 Extended Validation Server CA
+        Validity
+            Not Before: Apr 13 00:00:00 2016 GMT
+            Not After : Jul 12 12:00:00 2018 GMT
+        Subject: businessCategory=Private Organization/jurisdictionC=US/jurisdictionST=Utah/serialNumber=5299537-0142/street=Suite 500/street=2600 West Executive Parkway/postalCode=84043, C=US, ST=Utah, L=Lehi, O=DigiCert, Inc., CN=www.digicert.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (4096 bit)
+                Modulus:
+                    00:b9:08:39:88:04:72:8b:c9:6a:f5:ee:b3:f2:9f:
+                    .....
+                    3b:b5:03
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                keyid:3D:D3:50:A5:D6:A0:AD:EE:F3:4A:60:0A:65:D3:21:D4:F8:F8:D6:0F
+
+            X509v3 Subject Key Identifier: 
+                B6:36:E3:FF:65:44:F6:1C:C8:DC:B7:62:81:82:C3:54:D6:F7:E1:1B
+            X509v3 Subject Alternative Name: 
+                DNS:www.digicert.com, DNS:digicert.com, DNS:content.digicert.com, DNS:www.origin.digicert.com, DNS:login.digicert.com, DNS:api.digicert.com, DNS:ws.digicert.com
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://crl3.digicert.com/sha2-ev-server-g1.crl    <---- OXR: CRL URI 1
+
+                Full Name:
+                  URI:http://crl4.digicert.com/sha2-ev-server-g1.crl    <---- OXR: CRL URI 2 (can be multiple!)
+            X509v3 Certificate Policies: 
+                Policy: 2.16.840.1.114412.2.1
+                  CPS: https://www.digicert.com/CPS
+                Policy: 2.23.140.1.1
+
+            Authority Information Access: 
+                OCSP - URI:http://ocsp.digicert.com  <----- OXR: OSCP
+                CA Issuers - URI:http://cacerts.digicert.com/DigiCertSHA2ExtendedValidationServerCA.crt
+
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            CT Precertificate SCTs: 
+                Signed Certificate Timestamp:
+               ......
+
+    Signature Algorithm: sha256WithRSAEncryption
+         92:46:52:bf:18:5e:c2:64:c0:af:7f:73:9d:99:4d:0c:62:8b:
+         ......
+         b6:5a:75:61
+-----BEGIN CERTIFICATE-----
+MIII9TCCB92gAwIBAgIQB5PsiVldumBtH9n3vjiYAjANBgkqhkiG9w0BAQsFADB1
+.....
+MYTd5frlLpj1kU5+Hvs8sjwnLH57Y66e8T9bxVWR0cjBJO6G/LZadWE=
+-----END CERTIFICATE-----
+
+@@
+4. OBTAINING THE ENTIRE CA CHAIN (incl. server certificate)
+
+$ openssl s_client -CApath /etc/pki/tls -connect www.digicert.com:443 -showcerts > digicert.all.out
+
+The resulting file will contain not only the server certificate, but also any CA certificates that lead
+to the root CA certificate.
+
+Certificate chain
+ 0 s:/businessCategory=Private Organization/jurisdictionC=US/jurisdictionST=Utah/serialNumber=5299537-0142/street=Suite 500/street=2600 West Executive Parkway/postalCode=84043/C=US/ST=Utah/L=Lehi/O=DigiCert, Inc./CN=www.digicert.com
+   i:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+-----BEGIN CERTIFICATE-----
+MIII9TCCB92gAwIBAgIQB5PsiVldumBtH9n3vjiYAjANBgkqhkiG9w0BAQsFADB1
+...........
+MYTd5frlLpj1kU5+Hvs8sjwnLH57Y66e8T9bxVWR0cjBJO6G/LZadWE=
+-----END CERTIFICATE-----
+ 1 s:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+   i:/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert High Assurance EV Root CA
+-----BEGIN CERTIFICATE-----
+MIIEtjCCA56gAwIBAgIQDHmpRLCMEZUgkmFf4msdgzANBgkqhkiG9w0BAQsFADBs
+...........
+8TUoE6smftX3eg==
+-----END CERTIFICATE-----
+---
+
+So we see two PEM certificate entries in the output that are marked with BEGIN CERTIFICATE and END CERTIFICATE tokens.
+All we need to do is copy and paste the desired certificate to a .PEM file, since this is exactly what a PEM file contains. 

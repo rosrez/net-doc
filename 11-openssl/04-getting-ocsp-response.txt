@@ -1,0 +1,117 @@
+@@
+1. CHECKING CERTIFICATE VALIDITY WITH OCSP
+
+Issue the following command to initiate the OCSP exchange. Note that *all* parameters are needed. Also see error outputs
+when some paremeters are omitted.
+
+$ openssl ocsp -issuer $CERT -cert digicert.pem -VAfile $CERT -url http://ocsp.digicert.com -no_nonce -text
+OCSP Request Data:
+    Version: 1 (0x0)
+    Requestor List:
+        Certificate ID:
+          Hash Algorithm: sha1
+          Issuer Name Hash: 49F4BD8A18BF760698C5DE402D683B716AE4E686
+          Issuer Key Hash: 3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F
+          Serial Number: 0793EC89595DBA606D1FD9F7BE389802
+OCSP Response Data:
+    OCSP Response Status: successful (0x0)
+    Response Type: Basic OCSP Response
+    Version: 1 (0x0)
+    Responder Id: 3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F
+    Produced At: Jun 29 12:11:00 2016 GMT
+    Responses:
+    Certificate ID:
+      Hash Algorithm: sha1
+      Issuer Name Hash: 49F4BD8A18BF760698C5DE402D683B716AE4E686
+      Issuer Key Hash: 3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F
+      Serial Number: 0793EC89595DBA606D1FD9F7BE389802
+    Cert Status: good
+    This Update: Jun 29 12:11:00 2016 GMT
+    Next Update: Jul  6 11:26:00 2016 GMT
+
+    Signature Algorithm: sha256WithRSAEncryption
+         0b:f8:2b:9c:6d:b5:32:77:d7:13:a4:b1:f1:c4:af:be:88:f2:
+         ca:8f:34:61:a1:d3:8b:95:42:2d:cc:8c:33:2d:41:cf:99:3c:
+         3c:b8:90:4d:23:96:fe:93:19:e2:a7:c4:e5:15:6a:59:59:57:
+         4d:57:a6:ef:fc:9e:9e:27:c9:d1:7c:23:40:98:f3:e9:ab:2b:
+         c8:57:0e:69:fa:d6:ae:3f:e3:f3:53:a1:f8:47:cf:73:a2:4b:
+         54:e4:1a:f6:be:b3:a4:5d:05:4c:8e:1a:17:99:85:1c:a9:6f:
+         76:12:29:1e:7e:8d:3a:b8:f4:12:12:70:00:8f:c8:33:12:78:
+         c0:62:94:09:0d:b1:8c:b9:1e:6d:7a:5d:aa:0d:74:b2:7e:91:
+         45:da:da:f5:8c:2d:15:7e:10:f3:12:09:38:d9:3e:2f:4d:bf:
+         91:b0:5c:87:b5:d8:9c:f2:6a:aa:ea:e9:cc:95:8d:24:b5:59:
+         a6:1f:9f:58:fe:7c:93:b9:2b:87:73:60:0c:9f:71:98:cf:92:
+         47:94:47:0f:5b:ce:28:99:54:3a:e3:c9:8a:46:4a:c9:53:4a:
+         69:55:4d:3f:7f:f2:e3:27:06:a6:bd:a0:81:0e:81:d6:c5:87:
+         ba:0a:2d:c3:9e:fb:7e:e3:28:64:07:b0:d1:0b:30:02:d0:d2:
+         b6:16:fa:87
+Response verify OK
+digicert.pem: good
+        This Update: Jun 29 12:11:00 2016 GMT
+        Next Update: Jul  6 11:26:00 2016 GMT
+
+@@
+2. OMITTING VAcert CERTIFICATE IN INPUT
+
+$ openssl ocsp -issuer $CERT -cert digicert.pem -url http://ocsp.digicert.com -no_nonce -text
+OCSP Request Data:
+    Version: 1 (0x0)
+    Requestor List:
+        OXR: IDENTICAL TO NORMAL CASE
+OCSP Response Data:
+    OCSP Response Status: successful (0x0)
+    Response Type: Basic OCSP Response
+    Version: 1 (0x0)
+    Responder Id: 3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F
+    Produced At: Jun 29 12:11:00 2016 GMT
+    Responses:
+    Certificate ID:
+      Hash Algorithm: sha1
+      Issuer Name Hash: 49F4BD8A18BF760698C5DE402D683B716AE4E686
+      Issuer Key Hash: 3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F
+      Serial Number: 0793EC89595DBA606D1FD9F7BE389802
+    Cert Status: good           <--- OXR: CERTIFICATE STATUS == GOOD, i.e. STILL VALID
+    This Update: Jun 29 12:11:00 2016 GMT
+    Next Update: Jul  6 11:26:00 2016 GMT
+......
+
+Response Verify Failure <---- THE CLIENT USES VACert TO VERIFY OUTPUT FROM OCSP SERVER
+140260814440312:error:27069076:OCSP routines:OCSP_basic_verify:signer certificate not found:ocsp_vfy.c:92:
+digicert.pem: good
+        This Update: Jun 29 12:11:00 2016 GMT
+        Next Update: Jul  6 11:26:00 2016 GMT
+
+@@
+3. OMITTING -no_nonce
+
+OCSP Response Data:
+    OCSP Response Status: successful (0x0)
+    Response Type: Basic OCSP Response
+    Version: 1 (0x0)
+    ..........
+    Cert Status: good   <---- OXR: REPORTS GOOD STATUS
+    This Update: Jun 29 12:11:00 2016 GMT
+    Next Update: Jul  6 11:26:00 2016 GMT
+
+    Signature Algorithm: sha256WithRSAEncryption
+         0b:f8:2b:9c:6d:b5:32:77:d7:13:a4:b1:f1:c4:af:be:88:f2:
+         ca:8f:34:61:a1:d3:8b:95:42:2d:cc:8c:33:2d:41:cf:99:3c:
+         3c:b8:90:4d:23:96:fe:93:19:e2:a7:c4:e5:15:6a:59:59:57:
+         4d:57:a6:ef:fc:9e:9e:27:c9:d1:7c:23:40:98:f3:e9:ab:2b:
+         c8:57:0e:69:fa:d6:ae:3f:e3:f3:53:a1:f8:47:cf:73:a2:4b:
+         54:e4:1a:f6:be:b3:a4:5d:05:4c:8e:1a:17:99:85:1c:a9:6f:
+         76:12:29:1e:7e:8d:3a:b8:f4:12:12:70:00:8f:c8:33:12:78:
+         c0:62:94:09:0d:b1:8c:b9:1e:6d:7a:5d:aa:0d:74:b2:7e:91:
+         45:da:da:f5:8c:2d:15:7e:10:f3:12:09:38:d9:3e:2f:4d:bf:
+         91:b0:5c:87:b5:d8:9c:f2:6a:aa:ea:e9:cc:95:8d:24:b5:59:
+         a6:1f:9f:58:fe:7c:93:b9:2b:87:73:60:0c:9f:71:98:cf:92:
+         47:94:47:0f:5b:ce:28:99:54:3a:e3:c9:8a:46:4a:c9:53:4a:
+         69:55:4d:3f:7f:f2:e3:27:06:a6:bd:a0:81:0e:81:d6:c5:87:
+         ba:0a:2d:c3:9e:fb:7e:e3:28:64:07:b0:d1:0b:30:02:d0:d2:
+         b6:16:fa:87
+WARNING: no nonce in response   <---- OXR: THE ONLY WARNING WE GET
+Response verify OK              <---- OXR: RESPONSE VERIFIED OK
+digicert.pem: good
+        This Update: Jun 29 12:11:00 2016 GMT
+        Next Update: Jul  6 11:26:00 2016 GMT
+

@@ -1,0 +1,58 @@
+@@
+1. CRL ADDRESSES
+
+URIs for CRL distribution points (there may be multiple) can be obtained from a server certificate. For example, the following
+section contains URIs for www.digicert.com server certificate:
+
+            X509v3 CRL Distribution Points:
+
+                Full Name:
+                  URI:http://crl3.digicert.com/sha2-ev-server-g1.crl    <---- OXR: CRL URI 1
+         
+                Full Name:
+                  URI:http://crl4.digicert.com/sha2-ev-server-g1.crl    <---- OXR: CRL URI 2 (can be multiple!)
+
+@@
+2. DOWNLOADING A CRL
+
+$ curl http://crl3.digicert.com/sha2-ev-server-g1.crl > digicert.crl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 85799  100 85799    0     0   361k      0 --:--:-- --:--:-- --:--:--  362k
+
+NOTE: The CRL file is pretty big. This is a drawback for many systems. However, in a controlled environment where the
+client needs to verify only the single server's certificate, this is a valid approach. Can be simpler to implement than
+OCSP.
+
+@@
+3. CONVERTING A CRL INTO A HUMAN-READABLE FORM
+
+$ openssl crl -inform der -in digicert.crl -text > digicert.crl.txt
+
+$ cat digicert.crl.txt 
+Certificate Revocation List (CRL):
+        Version 2 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
+        Last Update: Jun 28 17:11:20 2016 GMT
+        Next Update: Jul  5 17:00:00 2016 GMT
+        CRL extensions:
+            X509v3 Authority Key Identifier: 
+                keyid:3D:D3:50:A5:D6:A0:AD:EE:F3:4A:60:0A:65:D3:21:D4:F8:F8:D6:0F
+
+            X509v3 CRL Number: 
+                978
+            X509v3 Issuing Distrubution Point: critical
+                Full Name:
+                  URI:http://crl3.digicert.com/sha2-ev-server-g1.crl
+
+Revoked Certificates:
+    Serial Number: 093494F92BB39ABA2480E88C3AFCA0BA
+        Revocation Date: May 29 19:39:44 2014 GMT
+    Serial Number: 059F0547FF7E386214B91438D797B9E0
+        Revocation Date: May 29 19:39:44 2014 GMT
+    Serial Number: 0EAE7E9E6BEF7E356D83166AC0362BD2
+        Revocation Date: Jul 14 19:34:06 2014 GMT
+    ..... < the list goes on and on > .....
+
+

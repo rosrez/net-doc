@@ -1,0 +1,47 @@
+@@
+1. TCPDUMP OF A SUCCESSFUL OCSP EXCHANGE
+
+All this is communicated over TCP/HTTP, in the clear. We (192.168.1.5) just post the request to the server and the server
+replies (note that they *still* use HTTP/1.0). The connection gets closed immediately. 
+
+# tcpdump -vvnn -i enp2s0 -p tcp and host ocsp.digicert.com
+tcpdump: listening on enp2s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+15:24:58.595297 IP (tos 0x0, ttl 64, id 9908, offset 0, flags [DF], proto TCP (6), length 60)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [S], cksum 0x0cc2 (correct), seq 2623692895, win 29200, options [mss 1460,sackOK,TS val 21710571 ecr 0,nop,wscale 7], length 0
+15:24:58.606275 IP (tos 0x0, ttl 58, id 0, offset 0, flags [DF], proto TCP (6), length 60)
+    93.184.220.29.80 > 192.168.1.5.34914: Flags [S.], cksum 0xa8dc (correct), seq 2462326312, ack 2623692896, win 65535, options [mss 1460,sackOK,TS val 1011935397 ecr 21710571,nop,wscale 9], length 0
+15:24:58.606331 IP (tos 0x0, ttl 64, id 9909, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [.], cksum 0xd6ba (correct), seq 1, ack 1, win 229, options [nop,nop,TS val 21710582 ecr 1011935397], length 0
+15:24:58.606457 IP (tos 0x0, ttl 64, id 9910, offset 0, flags [DF], proto TCP (6), length 214)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [P.], cksum 0x7f12 (correct), seq 1:163, ack 1, win 229, options [nop,nop,TS val 21710582 ecr 1011935397], length 162: HTTP, length: 162
+        POST / HTTP/1.0
+        Content-Type: application/ocsp-request
+        Content-Length: 83
+        
+15:24:58.614101 IP (tos 0x0, ttl 58, id 63118, offset 0, flags [DF], proto TCP (6), length 52)
+    93.184.220.29.80 > 192.168.1.5.34914: Flags [.], cksum 0xd5de (correct), seq 1, ack 163, win 285, options [nop,nop,TS val 1011935399 ecr 21710582], length 0
+15:24:58.638981 IP (tos 0x0, ttl 58, id 63119, offset 0, flags [DF], proto TCP (6), length 836)
+    93.184.220.29.80 > 192.168.1.5.34914: Flags [P.], cksum 0xab4d (correct), seq 1:785, ack 163, win 285, options [nop,nop,TS val 1011935405 ecr 21710582], length 784: HTTP, length: 784
+        HTTP/1.0 200 OK
+        Accept-Ranges: bytes
+        Cache-Control: max-age=517054
+        Content-Type: application/ocsp-response
+        Date: Wed, 29 Jun 2016 13:24:58 GMT
+        Etag: "5773c1ba-1d7"
+        Expires: Wed, 06 Jul 2016 01:24:58 GMT
+        Last-Modified: Wed, 29 Jun 2016 12:40:26 GMT
+        Server: nginx
+        Content-Length: 471
+        Connection: close
+        
+15:24:58.639094 IP (tos 0x0, ttl 64, id 9911, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [.], cksum 0xd2c9 (correct), seq 163, ack 785, win 251, options [nop,nop,TS val 21710615 ecr 1011935405], length 0
+15:24:58.639160 IP (tos 0x0, ttl 64, id 9912, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [F.], cksum 0xd2c8 (correct), seq 163, ack 785, win 251, options [nop,nop,TS val 21710615 ecr 1011935405], length 0
+15:24:58.641856 IP (tos 0x0, ttl 58, id 63120, offset 0, flags [DF], proto TCP (6), length 52)
+    93.184.220.29.80 > 192.168.1.5.34914: Flags [F.], cksum 0xd2c7 (correct), seq 785, ack 163, win 285, options [nop,nop,TS val 1011935405 ecr 21710582], length 0
+15:24:58.641889 IP (tos 0x0, ttl 64, id 9913, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.1.5.34914 > 93.184.220.29.80: Flags [.], cksum 0xd2c5 (correct), seq 164, ack 786, win 251, options [nop,nop,TS val 21710617 ecr 1011935405], length 0
+15:24:58.649723 IP (tos 0x0, ttl 58, id 63121, offset 0, flags [DF], proto TCP (6), length 52)
+    93.184.220.29.80 > 192.168.1.5.34914: Flags [.], cksum 0xd2a2 (correct), seq 786, ack 164, win 285, options [nop,nop,TS val 1011935408 ecr 21710615], length 0
+
