@@ -32,7 +32,7 @@ $ openssl crl -inform der -in digicert.crl -text > digicert.crl.txt
 $ cat digicert.crl.txt 
 Certificate Revocation List (CRL):
         Version 2 (0x1)
-    Signature Algorithm: sha256WithRSAEncryption
+    Signature Algorithm: sha256WithRSAEncryption<---- OXR: NOTE THAT THE ENTIRE CRL IS SIGNED BY THE SAME CA THAT ISSUED THE CERT!
         Issuer: /C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert SHA2 Extended Validation Server CA
         Last Update: Jun 28 17:11:20 2016 GMT
         Next Update: Jul  5 17:00:00 2016 GMT
