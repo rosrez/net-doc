@@ -1,0 +1,121 @@
+@@
+1. OBTAINING A SITE'S DIGITAL CERTIFICATE
+
+Use openssl client mode to obtain the digital certificate for a site.
+
+
+1) Get openssl's working directory for storing known certificates
+openssl version -d
+OPENSSLDIR: "/etc/pki/tls"
+
+2) Connect to the HTTPS port of the target server with openssl to get the certificate:
+
+$ openssl s_client -CApath $CDIR -connect www.google.com:443 > google.out 2>1
+
+@@
+2. INSPECTING THE OUTPUT FILE
+
+$ cat google.out
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:/C=US/ST=California/L=Mountain View/O=Google Inc/CN=www.google.com      <-- SERVER CERTIFICATE
+   i:/C=US/O=Google Inc/CN=Google Internet Authority G2                      <-- SIGNED BY i = issuer #1
+ 1 s:/C=US/O=Google Inc/CN=Google Internet Authority G2                      <--- issuer #2 CERTIFICATE
+   i:/C=US/O=GeoTrust Inc./CN=GeoTrust Global CA                             <--- SIGNED BY i = issuer #2
+ 2 s:/C=US/O=GeoTrust Inc./CN=GeoTrust Global CA                             <--- issuer #2 CERTIFICATE
+   i:/C=US/O=Equifax/OU=Equifax Secure Certificate Authority                 <--- SIGNED BY i = issuer #3, top-level
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEgDCCA2igAwIBAgIIF8zP738syB4wDQYJKoZIhvcNAQELBQAwSTELMAkGA1UE
+..... <omitted the body of the certificate> .....
+-----END CERTIFICATE-----
+subject=/C=US/ST=California/L=Mountain View/O=Google Inc/CN=www.google.com
+issuer=/C=US/O=Google Inc/CN=Google Internet Authority G2
+
+    Start Time: 1459955460
+    Timeout   : 300 (sec)
+    Verify return code: 0 (ok)
+
+In this example, we see that the certificate was issued for CN=www.google.com. We also see that the issuer's (Certificate Authority's, CA's) certificate was signed by a different CA, and that certificate, in turn, was signed by yet another CA. The numbering is from bottom-level certificate up to the top-level certificate.
+
+
+@@
+3. EXTRACTING A CERTIFICATE FROM openssl output:
+
+$ openssl x509 -in google.out -out google.pem
+
+This produces a .pem certificate format:
+
+$ file google.pem
+google.pem: PEM certificate
+
+The following command produces a human-readable version of certificate contents. 
+
+@@
+4. VIEWING CERTIFICATE DATA IN A HUMAN-READABLE FORM
+
+$ openssl x509 -in google.pem -text
+
+This produces the following output (some parts omitted):
+
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1714974185659090974 (0x17cccfef7f2cc81e)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, O=Google Inc, CN=Google Internet Authority G2
+        Validity
+            Not Before: Mar 23 19:41:44 2016 GMT
+            Not After : Jun 15 19:20:00 2016 GMT
+        Subject: C=US, ST=California, L=Mountain View, O=Google Inc, CN=www.google.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:a8:c7:39:6c:c1:3f:cf:0b:d8:04:ac:30:26:7b:
+                    e2:d7:f4:f0:1d:bf:cd:bb:d3:e0:47:09:a3:5e:fd:
+                    8c:59:13:4f:77:af:23:d0:ab:93:cf:28:7b:01:35:
+                    2c:cd:bc:7c:0d:7d:6b:af:1f:7c:ff:08:1b:da:22:
+                    21:60:06:29:92:9b:77:16:3a:f8:d7:8a:9a:93:2f:
+                    9b:07:1a:42:eb:fd:13:40:c6:6c:28:d9:d5:0a:67:
+                    42:c1:50:25:c1:e1:8b:d7:90:c6:f4:94:8d:d7:a6:
+                    06:64:d4:25:33:13:b8:e3:dc:70:e0:03:e2:0e:a5:
+                    3f:09:81:b9:8a:1f:5f:59:ef:e9:70:07:36:ae:9f:
+                    3b:41:93:c6:0c:fc:b2:ab:6f:d5:ed:0f:36:16:76:
+                    23:e4:07:09:b4:c7:1d:9d:8f:68:c2:ae:3e:3d:1e:
+                    fb:a0:f6:a0:06:43:96:71:f1:8b:8d:af:04:79:a9:
+                    85:d6:ff:c6:95:07:a3:09:f2:bf:d9:2c:ac:d4:df:
+                    d9:37:9e:fa:79:67:29:72:1a:49:49:02:e1:a7:78:
+                    26:e5:0a:1c:e9:47:5f:1a:6f:c9:36:07:fd:ba:aa:
+                    00:af:ed:3e:0c:2e:80:06:45:36:ef:4e:b6:74:1f:
+                    14:e3:f1:a8:9e:c8:8d:3e:8d:98:d1:42:30:5e:63:
+                    01:8f
+                Exponent: 65537 (0x10001)
+
+       X509v3 extensions:
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:www.google.com
+            Authority Information Access: 
+                CA Issuers - URI:http://pki.google.com/GIAG2.crt
+                OCSP - URI:http://clients1.google.com/ocsp
+
+            X509v3 Subject Key Identifier: 
+                0A:7E:94:43:59:7F:71:03:1D:7F:E1:20:57:7C:A2:5D:1E:BA:8F:1E
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Authority Key Identifier: 
+                keyid:4A:DD:06:16:1B:BC:F6:68:B5:76:F5:81:B6:BB:62:1A:BA:5A:81:2F
+
+            X509v3 Certificate Policies: 
+                Policy: 1.3.6.1.4.1.11129.2.5.1
+                Policy: 2.23.140.1.2.2
+
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://pki.google.com/GIAG2.crl           <-- Certificate Revocation List
+
