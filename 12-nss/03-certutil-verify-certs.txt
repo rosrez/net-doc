@@ -1,0 +1,14 @@
+@@
+1. VERIFYING A CERTIFICATE FROM AN NSS DB
+
+# certutil -d sql:/etc/ipsec.d -V -u C -n current
+certutil: certificate is valid
+
+
+
+# certutil -d sql:/etc/ipsec.d -V -u C -n future
+certutil: certificate is invalid: Peer's Certificate has expired.
+
+# certutil -d sql:/etc/ipsec.d -V -u C -n past
+certutil: certificate is invalid: Peer's Certificate has expired.
+

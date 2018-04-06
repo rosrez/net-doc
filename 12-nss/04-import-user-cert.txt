@@ -1,0 +1,58 @@
+@@
+1. IMPORTING END USER CERTIFICATES INTO NSS FROM A PKCS#12 BUNDLE
+
+Suppose we have the file current.p12. We import it into NSS like this
+
+# pk12util -i current.p12 -d sql:/etc/ipsec.d
+Enter password for PKCS12 file: 
+pk12util: PKCS12 IMPORT SUCCESSFUL
+
+The resulting NSS database now looks like this:
+
+# certutil -L -d sql:/etc/ipsec.d
+
+Certificate Nickname            Trust Attributes
+                                SSL,S/MIME,JAR/XPI
+
+work                            u,u,u  <--- PREVIOUSLY IMPORTED CERTIFICATE
+MyCorp CA Dept - MyCorp CA      ,,     <--- THE CA FOR THE PREVIOUSLY IMPORTED CERTIFICATE
+current                         u,u,u  <--- NEWLY IMPORTET CERTIFICATE
+MyCrop CA Root - MyCorp CA      ,,     <--- THE CA FOR THE PREVIOUSLY IMPORTED CERTIFICATE
+
+NOTE: The CA certificate gets imported along with the entire .p12 bundle. That is, the private key for the user certificate,
+the public key (i.e. the CA-signed user certificate), and the CA certificate.
+
+
+@@
+2. IMPORTING CA CERTIFICATES INTO NSS
+
+We can also import a CA certificate into NSS directly (we don't have to rely on pk12util).
+
+# certutil -A -a -i ca2.pem -d sql:/etc/ipsec.d -n "CA2" -t 'CT,,'
+
+COMMAND LINE OPTIONS:
+-A: add a certificate to the NSS DB
+-a: needed if if we are importing a PEM ASCII file. Omitting the switch assumes a binary format, i.e. DER.
+-n: a "friendly name" or "nickname" that the certificate can be referred to with (e.g. in Libreswan configuration).
+-t: certificate type; 'CT,,' means CA certificate as opposed to 'u,u,u' for user certificates.
+-d: directory where the NSS DB is located. Note the sql:/ prefix for the new SQLite DB format (key4.db/cert9.db files).
+
+NOTE: After we added the CA certificate to the NSS DB, certutil *no longer displays this CA with user certificates
+signed by this CA*. Instead, it displays a single CA entry for the CA:
+
+Certificate Nickname            Trust Attributes
+                                SSL,S/MIME,JAR/XPI
+
+work                            u,u,u
+MyCorp CA Dept - MyCorp CA      ,,   
+current                         u,u,u           <--- THE FIRST USER CERT TO USE CA2
+CA2                             CT,,            <--- THE CA IS REFERENCED ONLY ONCE IN OUTPUT 
+future                          u,u,u           <--- ALSO SIGNED BY CA2, BUT NO EXPLICIT REFERENCE TO CA2
+past                            u,u,u           <--- ALSO SIGNED BY CA2, BUT NO EXPLICIT REFERENCE TO CA2
+
+@@
+99. TODO
+
+1. Check if we can import individual private/public keys into NSS *using certutil only*.
+2. Study all available certificate types for NSS (certutil man page).
+3. Experiment with importing password-protected .p12 files

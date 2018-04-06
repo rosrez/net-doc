@@ -1,0 +1,268 @@
+PROBLEM:
+Client uses a certificate signed by CA nicknamed "CA2". Server had two connections defined, one that uses the "server" cert
+signed by CA2 and "home" cert signed by "MyCorp CA". I expected that, by default, pluto would pick the connection that uses the
+"server" certificate, since it's signed by the same CA as the initiator's (client's) cert. However, this is not the case:
+the responder selects the "home" connection as the most relevant one. The tunnel is established successfully, 
+probably because NSS's on both hosts contain both CAs.
+
+CLIENT:
+
+# cat current.conf
+conn current
+        # ikev2=propose
+        # LEFT ---------------------------------------
+        # %defaultroute denotes our (the roadwarrior's) current IP address (obtained at IPSec startup)
+        left=%defaultroute
+        # Our certificate - referenced by an NSS nickname
+        leftcert=current
+        # The roadwarrior's ID
+        leftid=%fromcert
+        # LEFT NAT -----------
+        # left=192.168.20.203
+        # This has to be our NAT device (see vmnetnat.conf on Windows in %PROGRAMDATA%/VMWare)
+        # leftnexthop=192.168.20.2
+        # RIGHT ---------------------------------------
+        # the remote peer's address (static, so that this local roadwarrior can find it)
+        right=192.168.1.5
+        # 
+        rightid=%fromcert
+        # Trust our own CA
+        # righca=%same
+        # Just load the connection upon ipsec start (requires an explicit ipsec auto --up home-work to set up a tunnel)
+        auto=add
+        # authentication method is by RSA keys
+        authby=rsasig
+
+# ipsec auto --up current
+002 "current" #1: initiating Main Mode
+104 "current" #1: STATE_MAIN_I1: initiate
+003 "current" #1: received Vendor ID payload [Dead Peer Detection]
+003 "current" #1: received Vendor ID payload [FRAGMENTATION]
+003 "current" #1: received Vendor ID payload [RFC 3947]
+002 "current" #1: enabling possible NAT-traversal with method RFC 3947 (NAT-Traversal)
+002 "current" #1: transition from state STATE_MAIN_I1 to state STATE_MAIN_I2
+106 "current" #1: STATE_MAIN_I2: sent MI2, expecting MR2
+003 "current" #1: NAT-Traversal: Result using RFC 3947 (NAT-Traversal) sender port 500: no NAT detected
+002 "current" #1: I am sending my cert
+002 "current" #1: I am sending a certificate request
+002 "current" #1: transition from state STATE_MAIN_I2 to state STATE_MAIN_I3
+108 "current" #1: STATE_MAIN_I3: sent MI3, expecting MR3
+003 "current" #1: received Vendor ID payload [CAN-IKEv2]
+002 "current" #1: Main mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com'
+002 "current" #1: certificate E=mail@mycorp.com,CN=www.mycorp.com,OU=Software,O=MyCorp CA,ST=Rhode Island,C=US OK
+002 "current" #1: transition from state STATE_MAIN_I3 to state STATE_MAIN_I4
+004 "current" #1: STATE_MAIN_I4: ISAKMP SA established {auth=RSA_SIG cipher=aes_256 integ=sha group=MODP2048}
+002 "current" #2: initiating Quick Mode RSASIG+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW {using isakmp#1 msgid:9ae5222a proposal=defaults pfsgroup=OAKLEY_GROUP_MODP2048}
+117 "current" #2: STATE_QUICK_I1: initiate
+002 "current" #2: transition from state STATE_QUICK_I1 to state STATE_QUICK_I2
+004 "current" #2: STATE_QUICK_I2: sent QI2, IPsec SA established tunnel mode {ESP=>0xabbdaeb1 <0x6c299840 xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=none DPD=passive}
+
+ipsec status
+
+000 Total IPsec connections: loaded 4, active 1
+000  
+000 State Information: DDoS cookies not required, Accepting new IKE connections
+000 IKE SAs: total(1), half-open(0), open(0), authenticated(1), anonymous(0)
+000 IPsec SAs: total(1), authenticated(1), anonymous(0)
+000  
+000 #2: "current":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27986s; newest IPSEC; eroute owner; isakmp#1; idle; import:admin initiate
+000 #2: "current" esp.abbdaeb1@192.168.1.5 esp.6c299840@192.168.1.6 tun.0@192.168.1.5 tun.0@192.168.1.6 ref=0 refhim=4294901761 Traffic: ESPout=0B ESPin=5KB! ESPmax=4194303B 
+000 #1: "current":500 STATE_MAIN_I4 (ISAKMP SA established); EVENT_SA_REPLACE in 2545s; newest ISAKMP; lastdpd=-1s(seq in:0 out:0); idle; import:admin initiate
+
+SERVER:
+
+$ tail -f /var/log/secure
+
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_connection me=192.168.1.5:500 him=192.168.1.6:500 policy=IKEV1_ALLOW
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing 192.168.1.5:500 to 0.0.0.0:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing ::1:500 to :::500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair_conn: 192.168.1.5:500 192.168.1.6:500 -> hp:none
+Jul  1 17:05:10 localhost pluto[4633]: | find_next_host_connection policy=IKEV1_ALLOW
+Jul  1 17:05:10 localhost pluto[4633]: | find_next_host_connection returns empty
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_connection me=192.168.1.5:500 him=%any:500 policy=RSASIG+IKEV1_ALLOW
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing 192.168.1.5:500 to 0.0.0.0:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair_conn: 192.168.1.5:500 %any:500 -> hp:home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: | find_next_host_connection policy=RSASIG+IKEV1_ALLOW
+Jul  1 17:05:10 localhost pluto[4633]: | found policy = RSASIG+ENCRYPT+TUNNEL+PFS+IKEV1_ALLOW+IKEV2_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW (home-work-cacert-ikev2)
+Jul  1 17:05:10 localhost pluto[4633]: | find_next_host_connection returns home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: | instantiating "home-work-cacert-ikev2" for initial Main Mode message received on 192.168.1.5:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing 192.168.1.5:500 to 0.0.0.0:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing ::1:500 to :::500
+Jul  1 17:05:10 localhost pluto[4633]: | connect_to_host_pair: 192.168.1.5:500 192.168.1.6:500 -> hp:none
+Jul  1 17:05:10 localhost pluto[4633]: | rw_instantiate() instantiated "home-work-cacert-ikev2"[3] 192.168.1.6 for 192.168.1.6
+Jul  1 17:05:10 localhost pluto[4633]: | creating state object #5 at 0x56327e059950
+Jul  1 17:05:10 localhost pluto[4633]: | parent state #5: new > STATE_UNDEFINED(ignore)
+Jul  1 17:05:10 localhost pluto[4633]: | processing connection "home-work-cacert-ikev2"[3] 192.168.1.6
+Jul  1 17:05:10 localhost pluto[4633]: | parent state #5: STATE_UNDEFINED(ignore) > STATE_MAIN_R0(half-open-ike)
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: | main_inI2_outR2_calcdone for #5: calculate DH finished
+Jul  1 17:05:10 localhost pluto[4633]: | processing connection "home-work-cacert-ikev2"[3] 192.168.1.6
+Jul  1 17:05:10 localhost pluto[4633]: | received encrypted packet from 192.168.1.6:500
+
+....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: Main mode peer ID is ID_DER_ASN1_DN: 'C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com'
+Jul  1 17:05:10 localhost pluto[4633]: | decoded CN=current.mycorp.com,O=MyCorp Inc.,ST=California,C=US
+Jul  1 17:05:10 localhost pluto[4633]: | get_issuer_crl : looking for a CRL issued by CN=MyCrop CA Root,OU=MyCorp CA Dept,O=MyCorp CA,L=San Francisco,ST=California,C=US
+Jul  1 17:05:10 localhost pluto[4633]: | missing or expired CRL
+Jul  1 17:05:10 localhost pluto[4633]: | crl_strict: 0, ocsp: 0, ocsp_strict: 0
+Jul  1 17:05:10 localhost pluto[4633]: | certificate is valid
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: certificate CN=current.mycorp.com,O=MyCorp Inc.,ST=California,C=US OK
+Jul  1 17:05:10 localhost pluto[4633]: | unreference key: 0x56327e0506d0 C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com cnt 1--
+Jul  1 17:05:10 localhost pluto[4633]: | get_pluto_gn_from_nss_cert: allocated pluto_gn 0x56327e033840
+Jul  1 17:05:10 localhost pluto[4633]: | unreference key: 0x56327e061150 C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com cnt 1--
+Jul  1 17:05:10 localhost pluto[4633]: | CR
+Jul  1 17:05:10 localhost pluto[4633]: | requested CA: '%any'
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: starting with home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: |    match_id a=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |             b=%fromcert
+Jul  1 17:05:10 localhost pluto[4633]: |    results  fail
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checking home-work-cacert-ikev2[3] 192.168.1.6 against home-work-cacert-ikev2[3] 192.168.1.6, best=(none) with match=0(id=0/ca=1/reqca=1)
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checked home-work-cacert-ikev2[3] 192.168.1.6 against home-work-cacert-ikev2[3] 192.168.1.6, now for see if best
+Jul  1 17:05:10 localhost pluto[4633]: | started looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->%fromcert of kind PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAasM+ vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did NOT match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAb/I4 vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: picking new best home-work-cacert-ikev2 (wild=0, peer_pathlen=7/our=0)
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing 192.168.1.5:500 to 192.168.1.6:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair: comparing 192.168.1.5:500 to 0.0.0.0:500
+Jul  1 17:05:10 localhost pluto[4633]: | find_host_pair_conn: 192.168.1.5:500 %any:500 -> hp:home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: |    match_id a=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |             b=%fromcert
+Jul  1 17:05:10 localhost pluto[4633]: |    results  fail
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checking home-work-cacert-ikev2[3] 192.168.1.6 against home-work-cacert-ikev2, best=home-work-cacert-ikev2 with match=0(id=0/ca=1/reqca=1)
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checked home-work-cacert-ikev2[3] 192.168.1.6 against home-work-cacert-ikev2, now for see if best
+Jul  1 17:05:10 localhost pluto[4633]: | started looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->%fromcert of kind PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAasM+ vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did NOT match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAb/I4 vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: |    match_id a=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |             b=@work
+Jul  1 17:05:10 localhost pluto[4633]: |    results  fail
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checking home-work-cacert-ikev2[3] 192.168.1.6 against home-work, best=home-work-cacert-ikev2 with match=0(id=0/ca=1/reqca=1)
+Jul  1 17:05:10 localhost pluto[4633]: |    match_id a=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |             b=%fromcert
+Jul  1 17:05:10 localhost pluto[4633]: |    results  fail
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checking home-work-cacert-ikev2[3] 192.168.1.6 against server, best=home-work-cacert-ikev2 with match=0(id=0/ca=1/reqca=1)
+Jul  1 17:05:10 localhost pluto[4633]: | refine_host_connection: checked home-work-cacert-ikev2[3] 192.168.1.6 against server, now for see if best
+Jul  1 17:05:10 localhost pluto[4633]: | started looking for secret for C=US, ST=California, O=MyCorp Inc., CN=server.mycorp.com->%fromcert of kind PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAasM+ vs PPK_RSA:AwEAAasM+
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: | offered CA: 'C=US, ST=Rhode Island, L=Providence, O=MyCorp CA, OU=MyCorp CA, CN=MyCorp CA Dept, E=cacert@mycorp.com'
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: | required CA is '%any'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | key issuer CA is 'C=US, ST=California, L=San Francisco, O=MyCorp CA, OU=MyCorp CA Dept, CN=MyCrop CA Root'
+Jul  1 17:05:10 localhost pluto[4633]: | NSS RSA verify: decrypted sig:
+Jul  1 17:05:10 localhost pluto[4633]: |   d2 b7 a4 57  9b d7 58 88  fb b6 ee d4  07 5d b4 98
+Jul  1 17:05:10 localhost pluto[4633]: |   3f a3 4a 4b
+Jul  1 17:05:10 localhost pluto[4633]: | NSS RSA verify: hash value:
+Jul  1 17:05:10 localhost pluto[4633]: |   d2 b7 a4 57  9b d7 58 88  fb b6 ee d4  07 5d b4 98
+Jul  1 17:05:10 localhost pluto[4633]: |   3f a3 4a 4b
+Jul  1 17:05:10 localhost pluto[4633]: | RSA Signature verified
+Jul  1 17:05:10 localhost pluto[4633]: | an RSA Sig check passed with *AwEAAbQP6 [preloaded key]
+Jul  1 17:05:10 localhost pluto[4633]: | authentication succeeded
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: I am sending my cert
+Jul  1 17:05:10 localhost pluto[4633]: | ***emit ISAKMP Certificate Payload:
+Jul  1 17:05:10 localhost pluto[4633]: |    next payload type: ISAKMP_NEXT_SIG (0x9)
+Jul  1 17:05:10 localhost pluto[4633]: |    cert encoding: CERT_X509_SIGNATURE (0x4)
+Jul  1 17:05:10 localhost pluto[4633]: | emitting 791 raw bytes of CERT into ISAKMP Certificate Payload
+
+.....
+
+
+Jul  1 17:05:10 localhost pluto[4633]: | started looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com of kind PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAasM+ vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did NOT match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+Jul  1 17:05:10 localhost pluto[4633]: | searching for certificate PPK_RSA:AwEAAb/I4 vs PPK_RSA:AwEAAb/I4
+Jul  1 17:05:10 localhost pluto[4633]: | k did match
+Jul  1 17:05:10 localhost pluto[4633]: | n did match
+Jul  1 17:05:10 localhost pluto[4633]: | e did match
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: transition from state STATE_MAIN_R2 to state STATE_MAIN_R3
+Jul  1 17:05:10 localhost pluto[4633]: | parent state #5: STATE_MAIN_R2(open-ike) > STATE_MAIN_R3(established-authenticated-ike)
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: STATE_MAIN_R3: sent MR3, ISAKMP SA established {auth=RSA_SIG cipher=aes_256 integ=sha group=MODP2048}
+Jul  1 17:05:10 localhost pluto[4633]: | modecfg pull: noquirk policy:push not-client
+Jul  1 17:05:10 localhost pluto[4633]: | phase 1 is done, looking for phase 2 to unpend
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #5: the peer proposed: 192.168.1.5/32:0/0 -> 192.168.1.6/32:0/0
+Jul  1 17:05:10 localhost pluto[4633]: | find_client_connection starting with home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: |   looking for 192.168.1.5/32:0/0 -> 192.168.1.6/32:0/0
+Jul  1 17:05:10 localhost pluto[4633]: |   concrete checking against sr#0 192.168.1.5/32 -> 192.168.1.6/32
+Jul  1 17:05:10 localhost pluto[4633]: |    match_id a=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |             b=C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com
+Jul  1 17:05:10 localhost pluto[4633]: |    results  matched
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustee A = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: | trusted_ca_nss: trustor B = '(empty)'
+Jul  1 17:05:10 localhost pluto[4633]: |   fc_try trying home-work-cacert-ikev2:192.168.1.5/32:0/0 -> 192.168.1.6/32:0/0 vs home-work-cacert-ikev2:192.168.1.5/32:0/0 -> 192.168.1.6/32:0/0
+Jul  1 17:05:10 localhost pluto[4633]: |   fc_try concluding with home-work-cacert-ikev2 [128]
+Jul  1 17:05:10 localhost pluto[4633]: |   fc_try home-work-cacert-ikev2 gives home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: |   concluding with d = home-work-cacert-ikev2
+Jul  1 17:05:10 localhost pluto[4633]: | client wildcard: no  port wildcard: no  virtual: no
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: | quick_inI1_outR1_cryptocontinue1 for #6: calculated ke+nonce, calculating DH
+Jul  1 17:05:10 localhost pluto[4633]: | processing connection "home-work-cacert-ikev2"[3] 192.168.1.6
+Jul  1 17:05:10 localhost pluto[4633]: | #6 quick_inI1_outR1_cryptocontinue1:2210 st->st_calculating = FALSE;
+Jul  1 17:05:10 localhost pluto[4633]: | saving DH priv (local secret) and pub key into state struct
+Jul  1 17:05:10 localhost pluto[4633]: | started looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com of kind PPK_PSK
+Jul  1 17:05:10 localhost pluto[4633]: | actually looking for secret for C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com->C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com of kind PPK_PSK
+Jul  1 17:05:10 localhost pluto[4633]: | line 0: key type PPK_PSK(C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com) to type PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | line 0: key type PPK_PSK(C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com) to type PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | line 1: key type PPK_PSK(C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com) to type PPK_RSA
+Jul  1 17:05:10 localhost pluto[4633]: | concluding with best_match=0 best=(nil) (lineno=-1)
+
+.....
+
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6: responding to Quick Mode proposal {msgid:9ae5222a}
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6:     us: 192.168.1.5<192.168.1.5>[C=US, ST=Rhode Island, O=MyCorp CA, OU=Software, CN=www.mycorp.com, E=mail@mycorp.com]
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6:   them: 192.168.1.6[C=US, ST=California, O=MyCorp Inc., CN=current.mycorp.com]
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6: transition from state STATE_QUICK_R0 to state STATE_QUICK_R1
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6: STATE_QUICK_R1: sent QR1, inbound IPsec SA installed, expecting QI2 tunnel mode {ESP=>0x6c299840 <0xabbdaeb1 xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=none DPD=passive}
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6: transition from state STATE_QUICK_R1 to state STATE_QUICK_R2
+Jul  1 17:05:10 localhost pluto[4633]: "home-work-cacert-ikev2"[3] 192.168.1.6 #6: STATE_QUICK_R2: IPsec SA established tunnel mode {ESP=>0x6c299840 <0xabbdaeb1 xfrm=AES_128-HMAC_SHA1 NATOA=none NATD=none DPD=passive}
+
+.....
+
+

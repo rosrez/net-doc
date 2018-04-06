@@ -1,0 +1,38 @@
+@@
+1. LISTING ALL CERTIFICATES FROM AN NSS DATABASE
+
+# certutil -d <dbpath> -L
+
+COMMAND LINE OPTION:
+-d: path to *directory* that contains the NSS DB
+-L: list entries
+
+# certutil -d sql:/etc/ipsec.d -L
+
+Certificate Nickname                                         Trust Attributes
+                                                             SSL,S/MIME,JAR/XPI
+
+work                                                         u,u,u
+MyCorp CA Dept - MyCorp CA                                   ,,   
+current                                                      u,u,u
+CA2                                                          CT,, 
+future                                                       u,u,u
+past                                                         u,u,u
+
+The left column contains nicknames (i.e. user-friendly names for certificates).
+
+@@
+2. LIST A SINGLE CERTIFICATE
+
+# certutil -d <dbpath> -L -n <nickname>
+
+COMMAND LINE OPTIONS
+-n: this option allows us to specify an individual certificate. That is, it narrows down output compared to the preceding command.
+
+@@
+3. LIST A CERTIFICATE CHAIN
+
+# certutil -d <dbpath> -n <nickname> -O
+
+COMMAND LINE OPTIONS:
+-O: tells certutil to print the certificate chain for the selected certificate
