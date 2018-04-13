@@ -1,0 +1,165 @@
+@@
+1. SETTING UP THE ENVIRONMENT FOR OPENSSL
+
+At the very minimum, ensure you the following set up.
+
+1) Have a directory and at least the 'newcerts' directory under it.
+
+$ mkdir certs
+$ mkdir certs/newcerts
+
+2) Also, for step @@5, create these files:
+
+touch index.txt             # (this will hold a 'database' of already created certificates).
+echo '100001' > serial      # this file stores the next serial number to assign to the end user certificate
+
+3) Create openssl.cnf file in it. 
+
+You could use as the template the one you find in the directory that "openssl version -d" returns:
+
+# openssl version -d
+OPENSSLDIR: "/etc/pki/tls"
+
+# ll /etc/pki/tls/openssl.cnf 
+-rw-r--r--. 1 root root 10923 Aug 13  2015 /etc/pki/tls/openssl.cnf
+
+3) Set up the OPENSSL_CONF environment variable to point to the configuration file
+
+# echo $OPENSSL_CONF
+/home/admin/certs/openssl.cnf
+
+@@
+2. ADJUSTING CONFIGURATION IN CONFIG FILE (openssl.cnf)
+
+As a minimum, the dir= setting should point to the current directory:
+
+[ CA_default ]
+dir = .
+
+Also, paths to files that get updated during certificate creation (e.g. serial, index.txt) can be modified here.
+
+@@
+3. CREATE A CERTIFICATE AUTHORITY CERTIFICATE
+
+Use the following to create the self signed root CA certificate.
+
+# openssl req -nodes -x509 -days 3650 -newkey rsa:1024 -keyout ca2.key -out ca2.pem
+           ^     ^     ^     ^          ^                ^               ^
+           |     |     |     |          |                |               |
+           |     |     |     |          |                |               + --- OUTPUT REQUEST/CERT FILE WITH THE PUBLIC KEY
+           |     |     |     |          |                +-------------------- OUTPUT PRIVATE KEY FILE
+           |     |     |     |          +--- CREATES A NEW CERTIFICATE REQUEST (OR SELF-SIGNED) AND A NEW PRIVATE KEY
+           |     |     |     |               alg:nbits: ALGORITHM THAT WILL GENERATES THE KEY nbits IN SIZE
+           |     |     |     |               E.G. rsa:1024 means 1024-bit RSA KEY
+           |     |     |     +-------------- VALID FOR THIS MANY DAYS
+           |     |     +-------------------- CREATE A SELF-SIGNED CERT (e.g. FOR ROOT CA), SIGNED WITH *THIS CERT'S* PRIVATE KEY
+           |     +-------------------------- NO ENCRYPTION (AND NO PASSWORD!)
+           +-------------------------------- CERT REQUEST OR SELF-SIGNED CERT
+
+# openssl req -nodes -x509 -days 3650 -newkey rsa:1024 -keyout ca2.key -out ca2.pem
+Generating a 1024 bit RSA private key
+....................++++++
+..........++++++
+writing new private key to 'ca2.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:US
+State or Province Name (full name) []:CA
+Locality Name (eg, city) [Default City]:San Francisco
+Organization Name (eg, company) [Default Company Ltd]:MyCorp CA
+Organizational Unit Name (eg, section) []:MyCorp Security
+Common Name (eg, your name or your server's hostname) []:MyCorp CA Dept
+Email Address []:cacert@mycorp.com
+
+@@
+4. CREATE A USER (aka END ENTITY) CERTIFICATE REQUEST
+
+To create a user certificate request, we omit the -x509 and -days options since they are applicable to (self-signed)
+certificates. Here, the result of our command is the private/public key pair, with the public key formatted as a
+certificate request to be signed by the CA. The private key will end up in the file specified by -keyout, the request 
+will be written to the file specified by -out.
+
+# openssl req -nodes -newkey rsa:1024 -keyout current.key -out current.csr
+Generating a 1024 bit RSA private key
+..++++++
+............................++++++
+writing new private key to 'current.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:US
+State or Province Name (full name) []:California
+Locality Name (eg, city) [Default City]:
+Organization Name (eg, company) [Default Company Ltd]:MyCorp Inc.
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:current.mycorp.com
+Email Address []:
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+
+@@
+5. SIGN THE CERTIFICATE REQUEST WITH THE CA PRIVATE KEY
+
+Note that this process also uses the CA public key.
+
+INPUT:    current.csr -- request public key file
+OUTPUT:   current.pem -- final X.509 certificate (i.e. public key signed by CA) file
+KEY PAIR: ca2.pem (public) - ca2.key (private)
+
+-startdate & -enddate: limit certificate validity to the specified period. With these omitted, the validity period is 1 year from now (or CA validity period?)
+
+# openssl ca -in current.csr -notext -cert ca2.pem -keyfile ca2.key -out current.pem -startdate 20160101000000Z -enddate 20171231235959Z
+Using configuration from /home/admin/certs/openssl.cnf
+Check that the request matches the signature
+Signature ok
+Certificate Details:
+        Serial Number: 5 (0x5)
+        Validity
+            Not Before: Jan  1 00:00:00 2016 GMT
+            Not After : Dec 31 23:59:59 2017 GMT
+        Subject:
+            countryName               = US
+            stateOrProvinceName       = California
+            organizationName          = MyCorp Inc.
+            commonName                = current.mycorp.com
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                24:BE:EF:DE:1D:E0:D0:20:39:69:F6:49:7D:BE:7B:FC:2B:0B:33:4A
+            X509v3 Authority Key Identifier: 
+                keyid:F4:67:A1:57:AF:65:D7:E8:FC:AE:21:B3:85:8F:95:9E:E3:80:85:D6
+
+Certificate is to be certified until Dec 31 23:59:59 2017 GMT (549 days)
+Sign the certificate? [y/n]:y
+
+
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+
+@@
+6. EXPORT END USER CERTIFICATE TO PKCS#12 FILE
+
+# openssl pkcs12 -export -certfile ca2.pem -in current.pem -inkey current.key -out current.p12 -name current
+Enter Export Password:
+Verifying - Enter Export Password:
+
+
