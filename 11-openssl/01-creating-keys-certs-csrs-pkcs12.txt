@@ -25,6 +25,8 @@ OPENSSLDIR: "/etc/pki/tls"
 
 3) Set up the OPENSSL_CONF environment variable to point to the configuration file
 
+# export OPENSSL_CONF=$PWD
+
 # echo $OPENSSL_CONF
 /home/admin/certs/openssl.cnf
 
