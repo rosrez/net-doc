@@ -25,7 +25,7 @@ OPENSSLDIR: "/etc/pki/tls"
 
 3) Set up the OPENSSL_CONF environment variable to point to the configuration file
 
-# export OPENSSL_CONF=$PWD
+# export OPENSSL_CONF=$PWD/openssl.cnf
 
 # echo $OPENSSL_CONF
 /home/admin/certs/openssl.cnf
@@ -164,4 +164,42 @@ Data Base Updated
 Enter Export Password:
 Verifying - Enter Export Password:
 
+============ CREATE A CERTIFICATE CHAIN (Steps 1-3 identical)  ============
 
+@@
+7. INTERMEDIATE CA CONFIGURATION
+
+Make sure the following is enabled in openssl.cnf file 
+(the last line is NOT enabled by default!):
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:TRUE
+# OXR: enabled this one
+keyUsage = keyCertSign
+
+NOTE: if keyCertSign is not enabled, the chain will fail to verify with "openssl verify". "openssl pkcs12 -export"
+will also fail to put the CA chain into the PKCS12 repository.
+
+@@
+8. CREATE INTERMEDIATE CERTIFICATE 
+
+# Generate private key
+$ openssl genrsa -out ca2.key 2048
+# Generate CSR
+$ openssl req -config openssl.cnf -new -key ca2.key -out ca2.csr
+# Sign certificate with rootca.key/rootca.pem
+$ openssl ca -config openssl.cnf -keyfile rootca.key -cert rootca.pem -extensions v3_req -notext -days 3649 -in ca2.csr -out ca2.pem
+                                                                            ^                ^       ^
+                                                                            |                |       |
+  POINT TO EXTENSIONS SPECIFIED IN THE [v3_req] SECTION OF THE CONFIG FILE--|                |       |
+  DON'T GENERATE TEXT VERSION OF THE RESULTING CERTIFICATE ----------------------------------|       | 
+  SPECIFY VALIDITY PERIOD FOR THE RESULTING CERTIFICATE ---------------------------------------------|
+
+@@
+9. CREATE SERVER CERTIFICATE
+
+# Generate private key/CSR pair
+$ openssl req -config openssl.cnf -nodes -newkey rsa:2048 -keyout server2.key -out server2.csr
+# Sign request with intermediate certificate
+$ openssl ca -config openssl.cnf -keyfile ca2.key -cert ca2.pem -days 1000 -in server2.csr -out server2.pem
